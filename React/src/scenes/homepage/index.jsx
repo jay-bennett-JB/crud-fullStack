@@ -1,10 +1,8 @@
 //Imports
-import { AccordionDetails, Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FullViewTask from "../../components/ViewTask";
 
 //HomePage Setup
 const HomePage = () => {
@@ -21,7 +19,7 @@ const HomePage = () => {
         />
         {/* Description  */}
         {/* Small list of Task if any */}
-
+        <FullViewTask />
       </Box>
     </Box>
   );

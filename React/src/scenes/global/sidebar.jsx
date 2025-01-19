@@ -1,15 +1,12 @@
 // Imports
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../themes";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
-import EngineeringOutlinedIcon from "@mui/icons-material/EngineeringOutlined";
-import AddHomeWorkOutlinedIcon from "@mui/icons-material/AddHomeWorkOutlined";
-import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 // Item Setup
@@ -30,7 +27,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 // Sidebar Setup
-const Sidebar = () => {
+const SidebarSetup = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -39,7 +36,7 @@ const Sidebar = () => {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important}`,
+          background: `${colors.primary[500]} !important}`,
         },
         "& .pro-icon-wrapper": { backgroundColor: "transparent !important" },
         "& .pro-inner-item": {
@@ -51,7 +48,7 @@ const Sidebar = () => {
         "& .pro-meni-item.active": { color: "#6870fa !important" },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <Sidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           {/* Name and other details */}
           <MenuItem
@@ -109,32 +106,11 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Skills"
-              to="/skills"
-              icon={<EngineeringOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Work Experience"
-              to="/experience"
-              icon={<AddHomeWorkOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Contact Form"
-              to="/form"
-              icon={<ContactPageOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
           </Box>
         </Menu>
-      </ProSidebar>
+      </Sidebar>
     </Box>
   );
 };
 
-export default Sidebar;
+export default SidebarSetup;
