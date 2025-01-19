@@ -3,10 +3,11 @@ from fastapi import FastAPI, HTTPException, Depends
 from typing import Annotated
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from .database import SessionLocal, engine
-from . import models
+from database import SessionLocal, engine
+import models
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
+from typing import List
 
 # Api Setup
 app = FastAPI()
@@ -37,7 +38,7 @@ class TransactionModel(TransactionBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # Database Connection function, this will try the database with a request
@@ -67,7 +68,7 @@ async def create_transaction(transaction: TransactionBase, db: db_dependency):
 
 
 # Get Function
-@app.get("/transactions/", response_model=[TransactionModel])
+@app.get("/transactions/", response_model=List[TransactionModel])
 async def read_transactions(db: db_dependency, skip: int = 0, limit: int = 100):
     transactions = db.query(models.Transaction).offset(skip).limit(limit).all()
     return transactions
