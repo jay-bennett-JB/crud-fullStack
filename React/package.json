@@ -8,7 +8,9 @@
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
     "@mui/x-data-grid": "^7.24.0",
+    "@mui/x-date-pickers": "^7.24.0",
     "cra-template": "1.2.0",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -18,7 +20,6 @@
     "yup": "^1.6.1"
   },
   "scripts": {
-    "start": "concurrently \" npm run start-react\" \"npm run start-backend\"",
     "start-react": "react-scripts start",
     "start-backend": "cd ../FastAPI && uvicorn main:app --reload",
     "build": "react-scripts build",

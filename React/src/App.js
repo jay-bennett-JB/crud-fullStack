@@ -3,7 +3,8 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import HomePage from "./scenes/homepage";
 import Topbar from "./scenes/global/topbar";
-import Sidebar from "./scenes/global/sidebar";
+import SidebarSetup from "./scenes/global/sidebar";
+import TaskCreatePage from "./scenes/createTask";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -13,19 +14,18 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
+          <SidebarSetup />
           <main className="content">
             <Topbar />
             <Routes>
               <Route
-                exact
                 path="/"
                 element={<HomePage />}
               />
-              {/* <Route
-                path="/createTask/"
-                element={<ProjectsBox />}
-              /> */}
+              <Route
+                path="/createTask"
+                element={<TaskCreatePage />}
+              />
             </Routes>
           </main>
         </div>

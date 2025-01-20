@@ -14,15 +14,22 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <MenuItem
-      active={selected === title}
-      style={{ color: colors.grey[100] }}
-      onClick={() => setSelected(title)}
-      icon={icon}
+    <Link
+      to={to}
+      style={{ textDecoration: "none" }}
     >
-      <Typography> {title} </Typography>
-      <Link to={to} />
-    </MenuItem>
+      <MenuItem
+        active={selected === title}
+        onClick={() => setSelected(title)}
+        style={{
+          color: selected === title ? colors.primary[500] : colors.grey[100],
+        }}
+        to={to}
+        icon={icon}
+      >
+        <Typography> {title} </Typography>
+      </MenuItem>
+    </Link>
   );
 };
 
@@ -31,7 +38,7 @@ const SidebarSetup = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState("homepage");
   return (
     <Box
       sx={{
@@ -45,7 +52,7 @@ const SidebarSetup = () => {
         "&.pro-inner-item:hover": {
           color: "#868dfb !important",
         },
-        "& .pro-meni-item.active": { color: "#6870fa !important" },
+        "& .pro-menu-item.active": { color: "#6870fa !important" },
       }}
     >
       <Sidebar collapsed={isCollapsed}>
