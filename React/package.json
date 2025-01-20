@@ -18,7 +18,9 @@
     "yup": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \" npm run start-react\" \"npm run start-backend\"",
+    "start-react": "react-scripts start",
+    "start-backend": "cd ../FastAPI && uvicorn main:app --reload",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

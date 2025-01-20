@@ -19,7 +19,9 @@ const HomePage = () => {
         />
         {/* Description  */}
         {/* Small list of Task if any */}
-        <FullViewTask />
+        <Box>
+          <FullViewTask />
+        </Box>
       </Box>
     </Box>
   );
