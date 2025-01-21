@@ -1,6 +1,6 @@
 // Imports
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, menuClasses } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -22,7 +22,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         active={selected === title}
         onClick={() => setSelected(title)}
         style={{
-          color: selected === title ? colors.primary[500] : colors.grey[100],
+          color:
+            selected === title ? colors.greenAccent[500] : colors.grey[100],
         }}
         to={to}
         icon={icon}
@@ -40,23 +41,30 @@ const SidebarSetup = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("homepage");
   return (
-    <Box
-      sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.primary[500]} !important}`,
-        },
-        "& .pro-icon-wrapper": { backgroundColor: "transparent !important" },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "&.pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": { color: "#6870fa !important" },
-      }}
-    >
-      <Sidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
+    <Box>
+      <Sidebar
+        collapsed={isCollapsed}
+        backgroundColor="transparent !important"
+        rootStyles={{
+          [`.${menuClasses.inner}`]: { backgroundColor: colors.primary[500] },
+        }}
+      >
+        <Menu
+          menuItemStyles={{
+            button: {
+              padding: "5px 35px 5px 20px",
+              "&:hover": {
+                color: "#868dfb",
+              },
+              "&.active": {
+                color: "#6870fa",
+              },
+            },
+            icon: {
+              backgroundColor: "transparent",
+            },
+          }}
+        >
           {/* Name and other details */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}

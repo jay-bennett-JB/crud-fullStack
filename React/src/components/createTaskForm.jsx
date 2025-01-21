@@ -16,7 +16,7 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { CreateTask } from "../api";
+import { createTask } from "../api";
 
 //Inital Values for Task Create
 
@@ -49,7 +49,7 @@ const CreateTaskForm = () => {
         // On Submit handler
         onSubmit={(values, actions) => {
           console.log("formik on submit test", values);
-          CreateTask(values)
+          createTask(values)
             .then(() => {
               console.log(values);
               actions.setSubmitting(false);

@@ -10,8 +10,8 @@ const TaskCreatePage = () => {
       {/* Header */}
       <Box>
         <Header
-          title="Homepage"
-          subtitle="For full list of tasks please see the view page"
+          title="Create a Task"
+          subtitle="Use this form to input and create a task"
         />
         {/* Description  */}
         {/* Small list of Task if any */}
