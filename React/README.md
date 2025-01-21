@@ -3,6 +3,16 @@
 Eric Roby - How to build a React and FastAPI application (Full Stack Guide)
 https://www.youtube.com/watch?v=0zb2kohYZIM&t=1833s
 
+## Activiion
+
+In order to run the backend and frontend
+
+1. In powershell terminal
+   a. .\env\Scripts\Activate.ps1
+2. cd React
+3. npm run start-backend
+4. npm run start-frontend
+
 Changes made from Video tutorial.
 
 1. Made some admendments to the FastAPI files to match my requirements

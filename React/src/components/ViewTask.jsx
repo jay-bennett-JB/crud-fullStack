@@ -77,6 +77,7 @@ const FullViewTaskList = () => {
           checkboxSelection
           rows={getTasks}
           columns={columns}
+          processRowUpdate={getTasks}
         />
       </Box>
     </Box>
