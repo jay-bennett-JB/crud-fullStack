@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy.orm import Session
-from test_database import TestingSessionLocal, engine
+from testing_db import TestingSessionLocal, engine
 from models import Transaction
 
 # Fixture to provide a fresh database session for each test
