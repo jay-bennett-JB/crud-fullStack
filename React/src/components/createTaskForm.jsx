@@ -4,7 +4,6 @@ import {
   Button,
   InputAdornment,
   TextField,
-  Typography,
   FormControl,
   FormControlLabel,
   RadioGroup,
@@ -17,6 +16,10 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTask } from "../api";
+import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+// import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
+// import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
 
 //Inital Values for Task Create
 
@@ -79,7 +82,7 @@ const CreateTaskForm = () => {
                 "& .div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              {/* Name */}
+              {/* Task Name */}
               <TextField
                 variant="filled"
                 type="text"
@@ -91,17 +94,17 @@ const CreateTaskForm = () => {
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 2" }}
-                /* slotProps={{
+                slotProps={{
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Person2OutlinedIcon />
+                        <FormatListBulletedOutlinedIcon />
                       </InputAdornment>
                     ),
                   },
-                }} */
+                }}
               />
-              {/* Description*/}
+              {/* Task Description*/}
               <TextField
                 fullWidth
                 variant="filled"
@@ -114,15 +117,15 @@ const CreateTaskForm = () => {
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 4" }}
-                // slotProps={{
-                //   input: {
-                //     startAdornment: (
-                //       <InputAdornment position="start">
-                //         <Person2OutlinedIcon />
-                //       </InputAdornment>
-                //     ),
-                //   },
-                // }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <DriveFileRenameOutlineOutlinedIcon />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
 
               {/* Due Date */}
@@ -139,15 +142,6 @@ const CreateTaskForm = () => {
                   error={!!touched.dueDate && !!errors.dueDate}
                   helperText={touched.dueDate && errors.dueDate}
                   sx={{ gridColumn: "span 2" }}
-                  // slotProps={{
-                  //   input: {
-                  //     startAdornment: (
-                  //       <InputAdornment position="start">
-                  //         <AlternateEmailOutlinedIcon />
-                  //       </InputAdornment>
-                  //     ),
-                  //   },
-                  // }}
                 />
               </LocalizationProvider>
               {/* Radio Box to select priority of Task */}
@@ -157,6 +151,7 @@ const CreateTaskForm = () => {
                   value={values.priority}
                   name="priority"
                   onChange={handleChange}
+                  sx={{ gridColum: "span 2" }}
                 >
                   <FormControlLabel
                     control={<Radio value="low" />}

@@ -8,7 +8,7 @@ https://www.youtube.com/watch?v=0zb2kohYZIM&t=1833s
 In order to run the backend and frontend
 
 1. In powershell terminal
-   a. .\env\Scripts\Activate.ps1
+   ''' .\env\Scripts\Activate.ps1'''
 2. cd React
 3. npm run start-backend
 4. npm run start-frontend
@@ -33,3 +33,18 @@ This web based application will allow a user to create, read, update and delete 
 
 1. Select Task using Check Box.
 2. New window will open with task details - This also uses Task Form but further completes information to allow user to see what is already there.
+
+## Icons
+
+HomeOutlinedIcon
+TaskOutlinedIcon
+MenuOutlinedIcon
+FormatListBulletedOutlinedIcon
+DriveFileRenameOutlineOutlinedIcon
+ScheduleOutlinedIcon
+LightModeOutlinedIcon
+DarkModeOutlinedIcon
+NotificationsIcon
+SettingsOutlinedIcon
+PersonOutlinedIcon
+SearchIcon

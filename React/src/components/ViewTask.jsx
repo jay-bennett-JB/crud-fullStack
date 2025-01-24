@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../themes";
-import Header from "../components/Header";
 import { getTasks } from "../api";
 
 //View Task
@@ -40,10 +39,6 @@ const FullViewTaskList = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="View Task"
-        subtitle="View full list of tasks"
-      />
       <Box
         m="40px 0 0 0"
         height="75vh"

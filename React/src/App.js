@@ -26,6 +26,14 @@ function App() {
                 path="/createTask"
                 element={<TaskCreatePage />}
               />
+              {/* <Route
+                path="/updateTask"
+                element={<UpdateTaskPage />}
+              /> */}
+              {/* <Route
+                path="/deleteTasl"
+                element={<DeleteTaskPage />}
+              /> */}
             </Routes>
           </main>
         </div>

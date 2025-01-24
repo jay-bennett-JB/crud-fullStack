@@ -6,7 +6,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../themes";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
+import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 // Item Setup
@@ -117,7 +117,21 @@ const SidebarSetup = () => {
             <Item
               title="Create a Task"
               to="/createTask"
-              icon={<AccountTreeOutlinedIcon />}
+              icon={<TaskOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Update a Task"
+              to="/updateTask"
+              icon={<TaskOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Delete a Task"
+              to="/deleteTask"
+              icon={<TaskOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
