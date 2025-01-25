@@ -6,9 +6,11 @@ import models
 
 
 # URL for Database
-SQLACLCEMY_URL_DATABASE = "sqlite:///./memory:"
+SQLALCHEMY_URL_DATABASE = "sqlite:///:memory:"
 
-engine = create_engine(SQLACLCEMY_URL_DATABASE, connect_args={"check_same_thread": False})
+engine = create_engine(
+    SQLALCHEMY_URL_DATABASE, connect_args={"check_same_thread": False}
+)
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

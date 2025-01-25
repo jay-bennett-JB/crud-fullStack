@@ -48,3 +48,11 @@ NotificationsIcon
 SettingsOutlinedIcon
 PersonOutlinedIcon
 SearchIcon
+
+## Tests
+
+Backend
+test_database - Tests Database backend functions (Unit testing)
+test_main - Test API endpoints (Integration testing)
+test_mmodels - Tests Models backend functions (Unit testing)
+testing_db - Sets up testing database connection. (Part of Unit and Integration)
