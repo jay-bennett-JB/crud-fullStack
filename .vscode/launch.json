@@ -5,20 +5,31 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python Debugger: FastAPI",
+      "name": "Debug FastAPI Backend",
       "type": "debugpy",
       "request": "launch",
       "module": "uvicorn",
-      "args": ["main:app", "--reload"],
-      "jinja": true
+      "args": ["FastAPI.main:app", "--reload", "--port", "8000"],
+      "justMyCode": true,
+      "jinja": true,
+      "env": { "PYTHONPATH": "${workspaceFolder}/FastAPI" },
+      "cwd": "${workspaceFolder}"
     },
     {
-      "name": "Python: Pytest",
+      "name": "Python Debugger: Pytest",
       "type": "debugpy",
       "request": "launch",
-      "program": "${FastAPI/tests}",
-      "args": ["--maxfail=3", "--disabale-warnings"],
-      "console": "integratedTerminal"
+      "module": "pytest",
+      "args": [
+        "${workspaceFolder}/FastAPI/tests",
+        "--maxfail=3",
+        "--disable-warnings"
+      ],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
     }
   ]
 }

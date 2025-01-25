@@ -1,6 +1,6 @@
 # Imports
 from sqlalchemy import Column, Integer, String, Boolean, Float, Date, DateTime
-from database import Base
+from FastAPI.database import Base
 
 
 # Table Class

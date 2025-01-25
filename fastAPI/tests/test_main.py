@@ -1,12 +1,25 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
+from database import Base
 from tests.testing_db import TestingSessionLocal, engine
 from main import get_db
+from sqlalchemy import inspect
+
+
+# Creating tables for testing
+@pytest.fixture(scope="module", autouse=True)
+def setup_test_db():
+    print("Database URL:", engine.url)
+    Base.metadata.create_all(bind=engine)
+    print("Table in Database: ", inspect(engine).get_table_names())
+    yield
+    Base.metadata.drop_all(bind=engine)
 
 
 # Override dependency to use test database
 def override_get_db():
+    print("Using Test DB")
     try:
         db = TestingSessionLocal()
         yield db
@@ -16,13 +29,17 @@ def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
-client = TestClient(app)
+
+# Fixture for FASTAPI test client
+@pytest.fixture(scope="module")
+def client():
+    return TestClient(app)
 
 
 # Create Transaction Test
-def test_create_transaction():
+def test_create_transaction(client):
     response = client.post(
-        "/transaction/",
+        "/transactions/",
         json={
             "name": "Test Transaction",
             "description": " A Test Transaction",
@@ -37,10 +54,10 @@ def test_create_transaction():
 
 
 # Test Read Transaction
-def test_read_transaction():
+def test_read_transaction(client):
     # Creating Transaction
     client.post(
-        "/transaction/",
+        "/transactions/",
         json={
             "name": "Test Read Transaction",
             "description": "To be read",
@@ -57,10 +74,10 @@ def test_read_transaction():
 
 
 # Test Update Transaction
-def test_update_transaction():
+def test_update_transaction(client):
     # Create a Transaction
     response = client.post(
-        "/transaction/",
+        "/transactions/",
         json={
             "name": "Inital Name Transaction",
             "description": "To be updated",
@@ -70,7 +87,7 @@ def test_update_transaction():
     )
     transaction_id = response.json()["id"]
     update_response = client.put(
-        f"/transaction/{transaction_id}",
+        f"/transactions/{transaction_id}",
         json={
             "name": "Updated Transaction",
             "description": "Updated Descirption",
@@ -79,13 +96,13 @@ def test_update_transaction():
         },
     )
     assert update_response.status_code == 200
-    data = updated_response.json()
-    assert data["name"] == "Updated Name"
+    data = update_response.json()
+    assert data["name"] == "Updated Transaction"
     assert data["priority"] is False
 
 
 # Test Delete Transaction
-def test_delete_transaction():
+def test_delete_transaction(client):
     # Create a Transaction
     response = client.post(
         "/transactions/",
@@ -103,6 +120,6 @@ def test_delete_transaction():
     assert delete_response.status_code == 200
 
     # Verification that the above no longer exists
-    get_response = client.get("/transaction/")
+    get_response = client.get("/transactions/")
     data = get_response.json()
     assert all(t["id"] != transaction_id for t in data)

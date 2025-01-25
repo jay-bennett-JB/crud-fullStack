@@ -8,20 +8,22 @@ import models
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 from typing import List
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 # Api Setup
 app = FastAPI()
 
 # Origin Declaration
-origins = ["http://localhost:3000"]
+origins = ["http://localhost:8000"]
 
 # Middleware declaration
 # this allows for a request from only origin declared values, in addition to restricting request types
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    # allow_methods=["GET", "POST", "PUT", "DELETE"],
-    # allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
 )
 
 
@@ -60,7 +62,8 @@ models.Base.metadata.create_all(bind=engine)
 # Post function - maps all values into  transaction table created in sqlite
 @app.post("/transactions/", response_model=TransactionModel)
 async def create_transaction(transaction: TransactionBase, db: db_dependency):
-    db_transaction = models.Transaction(**transaction.dict())
+    logging.debug(f"DB Dependency : {type(db)}")
+    db_transaction = models.Transaction(**transaction.model_dump())
     db.add(db_transaction)
     db.commit()
     db.refresh(db_transaction)
