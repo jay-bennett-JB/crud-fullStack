@@ -26,9 +26,9 @@
         "--disable-warnings"
       ],
       "env": {
-        "PYTHONPATH": "${workspaceFolder}"
+        "PYTHONPATH": "${workspaceFolder}/FastAPI"
       },
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/FastAPI",
       "justMyCode": true
     }
   ]

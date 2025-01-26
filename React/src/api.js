@@ -21,6 +21,18 @@ export const getTasks = async () => {
   }
 };
 
+//SINGLE Transaction Fetch
+export const getSingleTask = async (name) => {
+  try {
+    const response = await axiosInstance.get("/transactions/", name);
+    return response.data;
+  } catch (error) {
+    //Change to pop up at later date.
+    console.error("Error fetching tasks: ", error);
+    throw error;
+  }
+};
+
 //Create Task
 export const createTask = async (taskData) => {
   try {

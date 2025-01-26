@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG)
 app = FastAPI()
 
 # Origin Declaration
-origins = ["http://localhost:8000"]
+origins = ["http://localhost:8000", "https://localhost:3000"]
 
 # Middleware declaration
 # this allows for a request from only origin declared values, in addition to restricting request types
@@ -50,6 +50,7 @@ def get_db():
     try:
         yield db
     finally:
+        db.rollback()
         db.close()
 
 
@@ -70,8 +71,58 @@ async def create_transaction(transaction: TransactionBase, db: db_dependency):
     return db_transaction
 
 
-# Get Function
+# Get Function for all transaction
 @app.get("/transactions/", response_model=List[TransactionModel])
 async def read_transactions(db: db_dependency, skip: int = 0, limit: int = 100):
     transactions = db.query(models.Transaction).offset(skip).limit(limit).all()
     return transactions
+
+
+# 2nd GET Function for SINGLE Transaction
+@app.get("/transactions/{transaction_id}", response_model=TransactionModel)
+async def read_single_transaction(transaction_id: int, db: db_dependency):
+    db_transaction = (
+        db.query(models.Transaction)
+        .filter(models.Transaction.id == transaction_id)
+        .first()
+    )
+    if db_transaction is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return db_transaction
+
+
+# Put Function
+@app.put("/transactions/{transaction_id}", response_model=TransactionModel)
+async def update_transactions(
+    transaction_id: int, transaction: TransactionBase, db: db_dependency
+):
+    db_transaction = (
+        db.query(models.Transaction)
+        .filter(models.Transaction.id == transaction_id)
+        .first()
+    )
+    if not db_transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    db_transaction.name = transaction.name
+    db_transaction.description = transaction.description
+    db_transaction.dueDate = transaction.dueDate
+    db_transaction.priority = transaction.priority
+
+    db.commit()
+    db.refresh(db_transaction)
+    return db_transaction
+
+
+# Delete Function
+@app.delete("/transactions/{transaction_id}")
+async def delete_transaction(transaction_id: int, db: db_dependency):
+    db_transaction = (
+        db.query(models.Transaction)
+        .filter(models.Transaction.id == transaction_id)
+        .first()
+    )
+    if not db_transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    db.delete(db_transaction)
+    db.commit()
+    return {"message": f"Transaction{transaction_id} deleted successfully"}

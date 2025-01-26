@@ -1,107 +1,147 @@
+# Imports
 import pytest
-from datetime import datetime
-from tests.testing_db import TestingSessionLocal, engine
-from models import Transaction
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from test_utils import apply_test_dependencies, get_test_client, test_db_creation
+
+# Apply test dependencies to override the DB dependency
+apply_test_dependencies()
+
+# Create a TestClient instance to interact with FastAPI
+client = get_test_client()
 
 
-# Fixture to provide a fresh database session for each test
-@pytest.fixture(scope="function")
-def db_session():
-    # Create new Session
-    session = TestingSessionLocal()
-    yield session
-    # Rollback changes after each test
-    session.rollback()
-    session.close()
+# The pytest fixture for database creation is imported from test_utils.py
+# This will be automatically executed before the tests run and drop the DB after
+@pytest.fixture(scope="function", autouse=True)
+def db_setup():
+    test_db_creation()
+    yield
+    # Cleanup the DB after the test (drop tables)
+    test_db_creation()
 
 
-# Testing create_transaction
-def test_create_transaction(db_session):
+# Example Unit Test - Create a Transaction and verify if it's added
+def test_create_transaction():
+    # Define the data you want to send in your POST request
     transaction_data = {
         "name": "Test Transaction",
-        "description": "Test description",
-        "dueDate": datetime(2023, 12, 31, 12, 0),
+        "description": "A transaction to test the create operation",
+        "dueDate": "2025-12-31T12:00:00",
         "priority": True,
     }
-    # Arrange
-    transaction = Transaction(**transaction_data)
-    # Act
-    db_session.add(transaction)
-    db_session.commit()
-    db_session.refresh(transaction)
 
-    # Assert
-    assert transaction.name == "Test Transaction"
-    assert transaction.description == "Test description"
-    assert transaction.dueDate == datetime(2023, 12, 31, 12, 0)
-    assert transaction.priority is True
+    # Make a POST request to create a transaction
+    response = client.post("/transactions/", json=transaction_data)
+
+    # Check if the response status code is 200
+    assert response.status_code == 200
+
+    # Verify the returned data matches what was sent
+    data = response.json()
+    assert data["name"] == transaction_data["name"]
+    assert data["description"] == transaction_data["description"]
+    assert data["priority"] == transaction_data["priority"]
 
 
-# Testing read_transaction
-def test_read_transaction(db_session):
-    # Arrange
+# Example Unit Test - Read all transactions
+def test_read_transactions():
+    # First, create a transaction to read later
     transaction_data = {
-        "name": "Test Read",
-        "description": "Test read operation",
-        "dueDate": datetime(2023, 12, 31, 12, 0),
+        "name": "Read Test Transaction",
+        "description": "Transaction for reading",
+        "dueDate": "2025-11-30T10:00:00",
+        "priority": False,
+    }
+    client.post("/transactions/", json=transaction_data)
+
+    # Make a GET request to retrieve transactions
+    response = client.get("/transactions/")
+
+    # Assert the response is successful (status code 200)
+    assert response.status_code == 200
+
+    # Check if the created transaction is returned in the list
+    data = response.json()
+    assert len(data) > 0
+    assert any(t["name"] == "Read Test Transaction" for t in data)
+
+
+# Example Unit Test - Read a single transaction by ID
+def test_read_single_transaction():
+    # First, create a transaction to retrieve later
+    transaction_data = {
+        "name": "Single Transaction Test",
+        "description": "Transaction to test GET by ID",
+        "dueDate": "2025-11-01T10:00:00",
+        "priority": True,
+    }
+    create_response = client.post("/transactions/", json=transaction_data)
+    transaction_id = create_response.json()["id"]
+
+    # Make a GET request to retrieve this specific transaction
+    response = client.get(f"/transactions/{transaction_id}")
+
+    # Assert the response is successful
+    assert response.status_code == 200
+
+    # Verify the returned data matches the created transaction
+    data = response.json()
+    assert data["name"] == transaction_data["name"]
+    assert data["description"] == transaction_data["description"]
+
+
+# Example Integration Test - Update a transaction
+def test_update_transaction():
+    # Create a transaction first to update later
+    transaction_data = {
+        "name": "Update Test Transaction",
+        "description": "This transaction will be updated",
+        "dueDate": "2025-10-20T15:00:00",
+        "priority": True,
+    }
+    create_response = client.post("/transactions/", json=transaction_data)
+    transaction_id = create_response.json()["id"]
+
+    # Define the updated transaction data
+    updated_data = {
+        "name": "Updated Transaction Name",
+        "description": "Updated transaction description",
+        "dueDate": "2025-10-21T16:00:00",
         "priority": False,
     }
 
-    transaction = Transaction(**transaction_data)
-    db_session.add(transaction)
-    db_session.commit()
-    db_session.refresh(transaction)
+    # Make a PUT request to update the transaction
+    update_response = client.put(f"/transactions/{transaction_id}", json=updated_data)
 
-    # Act
-    fetched_transaction = (
-        db_session.query(Transaction).filter(Transaction.name == "Test Read").first()
-    )
+    # Assert the response is successful
+    assert update_response.status_code == 200
 
-    # Assert
-    assert fetched_transaction.name == "Test Read"
-    assert fetched_transaction.description == "Test read operation"
+    # Verify the returned data has been updated
+    data = update_response.json()
+    assert data["name"] == updated_data["name"]
+    assert data["description"] == updated_data["description"]
+    assert data["priority"] == updated_data["priority"]
 
 
-# Testing update_transaction
-def test_update_transaction(db_session):
+# Example Integration Test - Delete a transaction
+def test_delete_transaction():
+    # Create a transaction first to delete later
+    transaction_data = {
+        "name": "Delete Test Transaction",
+        "description": "This transaction will be deleted",
+        "dueDate": "2025-09-20T14:00:00",
+        "priority": False,
+    }
+    create_response = client.post("/transactions/", json=transaction_data)
+    transaction_id = create_response.json()["id"]
 
-    # Arrange: Create a new transaction
-    transaction = Transaction(
-        name="Test Update",
-        description="Initial description",
-        dueDate=datetime(2023, 12, 31, 12, 0),
-        priority=True,
-    )
-    db_session.add(transaction)
-    db_session.commit()
-    db_session.refresh(transaction)
-    # Act
-    transaction.description = "Updated description"
-    db_session.commit()
-    db_session.refresh(transaction)
-    # Anssert
-    assert transaction.description == "Updated description"
+    # Make a DELETE request to delete the transaction
+    delete_response = client.delete(f"/transactions/{transaction_id}")
 
+    # Assert the response is successful
+    assert delete_response.status_code == 200
 
-# Testing delete_transaction
-def test_delete_transaction(db_session):
-    # Arrange
-    transaction = Transaction(
-        name="Test Delete",
-        description="Delete this transaction",
-        dueDate=datetime(2023, 12, 31, 12, 0),
-        priority=False,
-    )
-    db_session.add(transaction)
-    db_session.commit()
-    db_session.refresh(transaction)
-
-    # Act
-    db_session.delete(transaction)
-    db_session.commit()
-
-    # Assert
-    deleted_transaction = (
-        db_session.query(Transaction).filter(Transaction.name == "Test Delete").first()
-    )
-    assert deleted_transaction is None
+    # Verify that the transaction is no longer in the database
+    get_response = client.get(f"/transactions/{transaction_id}")
+    assert get_response.status_code == 404  # Should return 404 as it is deleted
