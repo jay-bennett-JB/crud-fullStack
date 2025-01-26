@@ -2,14 +2,11 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from FastAPI.tests.test_utils import (
-    apply_test_dependencies,
-    get_test_client,
-)
+from FastAPI.tests.test_utils import apply_test_dependencies, get_test_client, dbTest
 
 
 # Example Unit Test - Create a Transaction and verify if it's added
-def test_create_transaction(db):
+def test_create_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -37,7 +34,7 @@ def test_create_transaction(db):
 
 
 # Example Unit Test - Read all transactions
-def test_read_transactions(db):
+def test_read_transactions(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -65,7 +62,12 @@ def test_read_transactions(db):
 
 
 # Example Unit Test - Read a single transaction by ID
-def test_read_single_transaction(db):
+def test_read_single_transaction(dbTest):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # First, create a transaction to retrieve later
     transaction_data = {
         "name": "Single Transaction Test",
@@ -83,13 +85,13 @@ def test_read_single_transaction(db):
     assert response.status_code == 200
 
     # Verify the returned data matches the created transaction
-    data = response.json(db)
+    data = response.json()
     assert data["name"] == transaction_data["name"]
     assert data["description"] == transaction_data["description"]
 
 
 # Example Integration Test - Update a transaction
-def test_update_transaction(db):
+def test_update_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -127,7 +129,7 @@ def test_update_transaction(db):
 
 
 # Example Integration Test - Delete a transaction
-def test_delete_transaction(db):
+def test_delete_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 

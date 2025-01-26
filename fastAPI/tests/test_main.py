@@ -1,14 +1,11 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from FastAPI.tests.test_utils import (
-    apply_test_dependencies,
-    get_test_client,
-)
+from FastAPI.tests.test_utils import apply_test_dependencies, get_test_client, dbTest
 
 
 # Create Transaction Test
-def test_create_transaction(db):
+def test_create_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -22,16 +19,16 @@ def test_create_transaction(db):
     }
 
     # Post request
-    response = client.post("/transaction/", json=transaction_data)
-    assert response.status_code == 200
-    data = response.json()
+    create_response = client.post("/transactions/", json=transaction_data)
+    assert create_response.status_code == 200
+    data = create_response.json()
     assert data["name"] == transaction_data["name"]
     assert data["description"] == transaction_data["description"]
     assert data["priority"] == transaction_data["priority"]
 
 
 # Test Read Transaction
-def test_read_transaction(db):
+def test_read_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -47,7 +44,7 @@ def test_read_transaction(db):
     client.post("/transactions/", json=transaction_data)
 
     # Get Request and assert response is successful
-    response = client.get("/transaction/")
+    response = client.get("/transactions/")
     assert response.status_code == 200
 
     # Check if transaction is returned in list
@@ -57,7 +54,7 @@ def test_read_transaction(db):
 
 
 # Single Transaction test
-def test_read_single_transaction(db):
+def test_read_single_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -84,7 +81,7 @@ def test_read_single_transaction(db):
 
 
 # Test Update Transaction
-def test_update_transaction(db):
+def test_update_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 
@@ -120,7 +117,7 @@ def test_update_transaction(db):
 
 
 # Test Delete Transaction
-def test_delete_transaction(db):
+def test_delete_transaction(dbTest):
     # Apply test dependencies to override the DB dependency
     apply_test_dependencies()
 

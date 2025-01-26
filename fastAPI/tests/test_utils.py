@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Transaction
 from fastapi.testclient import TestClient
-from database import Base
+from database import Base, SessionLocal
 
 
 # Configure in-memory SQLite database for testing
@@ -25,9 +25,11 @@ def teardown_test_db():
 
 
 @pytest.fixture(scope="function")
-def db():
+def dbTest():
     test_db_creation()
-    yield
+    db_session = TestingSessionLocal()
+    yield db_session
+    db_session.close()
     teardown_test_db()
 
 
@@ -35,7 +37,6 @@ def db():
 
 
 def override_get_db():
-    print("Using Test DB")
     db = TestingSessionLocal()
     try:
         yield db
@@ -48,7 +49,7 @@ def override_get_db():
 def apply_test_dependencies():
     from main import app
 
-    app.dependency_overrides = {override_get_db}
+    app.dependency_overrides = {SessionLocal: override_get_db}
     print(f"Using test database: {SQLALCHEMY_URL_TEST_DATABASE}")
 
 
