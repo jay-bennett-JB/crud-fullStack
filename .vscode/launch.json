@@ -30,6 +30,15 @@
       },
       "cwd": "${workspaceFolder}/FastAPI",
       "justMyCode": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Test",
+      "program": "${workspaceFolder}/node_modules/jest/jest.js",
+      "args": ["--watchAll"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
