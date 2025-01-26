@@ -21,12 +21,12 @@
       "request": "launch",
       "module": "pytest",
       "args": [
-        "${workspaceFolder}/FastAPI/tests",
+        "${workspaceFolder}/FastAPI",
         "--maxfail=3",
         "--disable-warnings"
       ],
       "env": {
-        "PYTHONPATH": "${workspaceFolder}/FastAPI"
+        "PYTHONPATH": "${workspaceFolder}"
       },
       "cwd": "${workspaceFolder}/FastAPI",
       "justMyCode": true

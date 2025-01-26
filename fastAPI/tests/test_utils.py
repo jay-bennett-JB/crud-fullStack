@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Transaction
 from fastapi.testclient import TestClient
+from database import Base
 
 
 # Configure in-memory SQLite database for testing
@@ -15,11 +16,19 @@ test_engine = create_engine(
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
 
-@pytest.fixture(scope="session", autouse=True)
 def test_db_creation():
     Base.metadata.create_all(bind=test_engine)
-    yield
+
+
+def teardown_test_db():
     Base.metadata.drop_all(bind=test_engine)
+
+
+@pytest.fixture(scope="function")
+def db():
+    test_db_creation()
+    yield
+    teardown_test_db()
 
 
 # Override dependency to use test database

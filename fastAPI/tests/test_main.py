@@ -1,22 +1,19 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from test_utils import apply_test_dependencies, get_test_client, test_db_creation
-
-apply_test_dependencies()
-
-client = get_test_client()
-
-
-@pytest.fixture(scope="function", auto=True)
-def db_setup():
-    test_db_creation()
-    yield
-    test_db_creation()
+from FastAPI.tests.test_utils import (
+    apply_test_dependencies,
+    get_test_client,
+)
 
 
 # Create Transaction Test
-def test_create_transaction():
+def test_create_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     transaction_data = {
         "name": "Test Transaction",
         "description": " A Test Transaction",
@@ -34,7 +31,12 @@ def test_create_transaction():
 
 
 # Test Read Transaction
-def test_read_transaction():
+def test_read_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Creating Transaction
     transaction_data = {
         "name": "Read Test Transaction",
@@ -55,7 +57,12 @@ def test_read_transaction():
 
 
 # Single Transaction test
-def test_read_single_transaction():
+def test_read_single_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # First, create a transaction to retrieve later
     transaction_data = {
         "name": "Single Transaction Test",
@@ -77,7 +84,12 @@ def test_read_single_transaction():
 
 
 # Test Update Transaction
-def test_update_transaction():
+def test_update_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Create a transaction first to update later
     transaction_data = {
         "name": "Update Test Transaction",
@@ -108,7 +120,12 @@ def test_update_transaction():
 
 
 # Test Delete Transaction
-def test_delete_transaction(client):
+def test_delete_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Create a transaction first to delete later
     transaction_data = {
         "name": "Delete Test Transaction",

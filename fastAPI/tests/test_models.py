@@ -2,27 +2,19 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from test_utils import apply_test_dependencies, get_test_client, test_db_creation
-
-# Apply test dependencies to override the DB dependency
-apply_test_dependencies()
-
-# Create a TestClient instance to interact with FastAPI
-client = get_test_client()
-
-
-# The pytest fixture for database creation is imported from test_utils.py
-# This will be automatically executed before the tests run and drop the DB after
-@pytest.fixture(scope="function", autouse=True)
-def db_setup():
-    test_db_creation()
-    yield
-    # Cleanup the DB after the test (drop tables)
-    test_db_creation()
+from FastAPI.tests.test_utils import (
+    apply_test_dependencies,
+    get_test_client,
+)
 
 
 # Example Unit Test - Create a Transaction and verify if it's added
-def test_create_transaction():
+def test_create_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Define the data you want to send in your POST request
     transaction_data = {
         "name": "Test Transaction",
@@ -45,7 +37,12 @@ def test_create_transaction():
 
 
 # Example Unit Test - Read all transactions
-def test_read_transactions():
+def test_read_transactions(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # First, create a transaction to read later
     transaction_data = {
         "name": "Read Test Transaction",
@@ -68,7 +65,7 @@ def test_read_transactions():
 
 
 # Example Unit Test - Read a single transaction by ID
-def test_read_single_transaction():
+def test_read_single_transaction(db):
     # First, create a transaction to retrieve later
     transaction_data = {
         "name": "Single Transaction Test",
@@ -86,13 +83,18 @@ def test_read_single_transaction():
     assert response.status_code == 200
 
     # Verify the returned data matches the created transaction
-    data = response.json()
+    data = response.json(db)
     assert data["name"] == transaction_data["name"]
     assert data["description"] == transaction_data["description"]
 
 
 # Example Integration Test - Update a transaction
-def test_update_transaction():
+def test_update_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Create a transaction first to update later
     transaction_data = {
         "name": "Update Test Transaction",
@@ -125,7 +127,12 @@ def test_update_transaction():
 
 
 # Example Integration Test - Delete a transaction
-def test_delete_transaction():
+def test_delete_transaction(db):
+    # Apply test dependencies to override the DB dependency
+    apply_test_dependencies()
+
+    # Create a TestClient instance to interact with FastAPI
+    client = get_test_client()
     # Create a transaction first to delete later
     transaction_data = {
         "name": "Delete Test Transaction",
