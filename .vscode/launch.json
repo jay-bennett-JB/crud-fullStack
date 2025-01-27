@@ -30,6 +30,20 @@
       },
       "cwd": "${workspaceFolder}/FastAPI",
       "justMyCode": true
+    },
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "args": ["run", "test", "--", "--runInBand"],
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}/React",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "test"
+      }
     }
   ]
 }
