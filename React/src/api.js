@@ -1,10 +1,10 @@
 //Imports
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000";
+export const API_BASE_URL = "http://localhost:8000";
 
 //Axios Instance
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
 });
@@ -16,8 +16,8 @@ export const getTasks = async () => {
     return response.data;
   } catch (error) {
     //Change to pop up at later date.
-    console.error("Error fetching tasks: ", error);
-    throw error;
+    console.debug("Error fetching tasks: ", error.message);
+    throw new Error(error.message);
   }
 };
 
