@@ -10,6 +10,7 @@ class Transaction(Base):
 
     # Column Set up
     id = Column(Integer, primary_key=True, index=True)
+    taskID = Column(Integer)
     name = Column(String)
     description = Column(String)
     dueDate = Column(DateTime)

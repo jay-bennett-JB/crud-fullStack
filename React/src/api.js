@@ -22,14 +22,14 @@ export const getTasks = async () => {
 };
 
 //SINGLE Transaction Fetch
-export const getSingleTask = async (name) => {
+export const getSingleTask = async (taskID) => {
   try {
-    const response = await axiosInstance.get("/transactions/", name);
+    const response = await axiosInstance.get(`/transactions/${taskID}`);
     return response.data;
   } catch (error) {
     //Change to pop up at later date.
-    console.error("Error fetching tasks: ", error);
-    throw error;
+    console.debug("Error fetching single tasks: ", error.message);
+    throw new Error(error.message);
   }
 };
 
@@ -39,29 +39,32 @@ export const createTask = async (taskData) => {
     const response = await axiosInstance.post("/transactions/", taskData);
     return response.data;
   } catch (error) {
-    console.error("Error creating task:", error);
-    throw error;
+    console.debug("Error creating task: ", error.message);
+    throw new Error(error.message);
   }
 };
 
 // Update a task
-export const updateTask = async (id, taskData) => {
+export const updateTask = async (taskID, taskUpData) => {
   try {
-    const response = await axiosInstance.put(`/transactions/${id}`, taskData);
+    const response = await axiosInstance.put(
+      `/transactions/${taskID}`,
+      taskUpData
+    );
     return response.data;
   } catch (error) {
-    console.error("Error updating task:", error);
-    throw error;
+    console.error("Error updating task:", error.message);
+    throw new Error(error.message);
   }
 };
 
 // Delete a task
-export const deleteTask = async (id) => {
+export const deleteTask = async (taskID) => {
   try {
-    const response = await axiosInstance.delete(`/transactions/${id}`);
+    const response = await axiosInstance.delete(`/transactions/${taskID}`);
     return response.data;
   } catch (error) {
-    console.error("Error deleting task:", error);
-    throw error;
+    console.error("Error deleting task:", error.messaged);
+    throw new Error(error.message);
   }
 };

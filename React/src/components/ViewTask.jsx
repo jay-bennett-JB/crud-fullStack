@@ -9,12 +9,16 @@ const FullViewTaskList = () => {
   const colors = tokens(theme.palette.mode);
   const columns = [
     {
+      field: "taskID",
+      headerName: "Task ID",
+      flex: 1,
+    },
+    {
       field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
-
     {
       field: "description",
       headerName: "Description",

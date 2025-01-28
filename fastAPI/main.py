@@ -29,6 +29,7 @@ app.add_middleware(
 
 # TransactionBase Class - Using pydantic BaseModel inheritance to valid data received from React frontend
 class TransactionBase(BaseModel):
+    taskID: int
     name: str
     description: str
     dueDate: datetime
@@ -103,6 +104,7 @@ async def update_transactions(
     )
     if not db_transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
+    db_transaction.taskID = transaction.taskID
     db_transaction.name = transaction.name
     db_transaction.description = transaction.description
     db_transaction.dueDate = transaction.dueDate

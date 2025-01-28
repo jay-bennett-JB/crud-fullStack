@@ -24,6 +24,7 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 //Inital Values for Task Create
 
 const InitialValues = {
+  taskID: "",
   name: "",
   description: "",
   dueDate: null,
@@ -36,6 +37,7 @@ const InitialValues = {
 
 //User Schema
 const userSchema = yup.object().shape({
+  taskID: yup.string().required("This is required"),
   name: yup.string().required("This is required"),
   description: yup.string().required("This is required"),
 });
@@ -83,6 +85,27 @@ const CreateTaskForm = () => {
               }}
             >
               {/* Task Name */}
+              <TextField
+                variant="filled"
+                type="text"
+                label="Task ID"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.taskID}
+                name="taskID"
+                error={!!touched.taskID && !!errors.taskID}
+                helperText={touched.taskID && errors.taskID}
+                sx={{ gridColumn: "span 2" }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FormatListBulletedOutlinedIcon />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+              />
               <TextField
                 variant="filled"
                 type="text"

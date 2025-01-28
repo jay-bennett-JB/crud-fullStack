@@ -12,6 +12,7 @@ def test_create_transaction(dbTest):
     # Create a TestClient instance to interact with FastAPI
     client = get_test_client()
     transaction_data = {
+        "taskID": 1,
         "name": "Test Transaction",
         "description": " A Test Transaction",
         "dueDate": "2025-12-21T12:00:00",
@@ -22,6 +23,7 @@ def test_create_transaction(dbTest):
     create_response = client.post("/transactions/", json=transaction_data)
     assert create_response.status_code == 200
     data = create_response.json()
+    assert data["taskID"] == transaction_data["taskID"]
     assert data["name"] == transaction_data["name"]
     assert data["description"] == transaction_data["description"]
     assert data["priority"] == transaction_data["priority"]
@@ -36,6 +38,7 @@ def test_read_transaction(dbTest):
     client = get_test_client()
     # Creating Transaction
     transaction_data = {
+        "taskID": "1",
         "name": "Read Test Transaction",
         "description": " A Test Transaction",
         "dueDate": "2025-12-21T12:00:00",
@@ -62,6 +65,7 @@ def test_read_single_transaction(dbTest):
     client = get_test_client()
     # First, create a transaction to retrieve later
     transaction_data = {
+        "taskID": "1",
         "name": "Single Transaction Test",
         "description": "Transaction to test GET by ID",
         "dueDate": "2025-11-01T10:00:00",
@@ -89,6 +93,7 @@ def test_update_transaction(dbTest):
     client = get_test_client()
     # Create a transaction first to update later
     transaction_data = {
+        "taskID": 1,
         "name": "Update Test Transaction",
         "description": "This transaction will be updated",
         "dueDate": "2025-10-20T15:00:00",
@@ -99,6 +104,7 @@ def test_update_transaction(dbTest):
 
     # Define the updated transaction data
     updated_data = {
+        "taskID": 2,
         "name": "Updated Transaction Name",
         "description": "Updated transaction description",
         "dueDate": "2025-10-21T16:00:00",
@@ -111,6 +117,7 @@ def test_update_transaction(dbTest):
 
     # Verify the returned data has been updated
     data = update_response.json()
+    assert data["taskID"] == updated_data["taskID"]
     assert data["name"] == updated_data["name"]
     assert data["description"] == updated_data["description"]
     assert data["priority"] == updated_data["priority"]
@@ -125,6 +132,7 @@ def test_delete_transaction(dbTest):
     client = get_test_client()
     # Create a transaction first to delete later
     transaction_data = {
+        "taskID": "1",
         "name": "Delete Test Transaction",
         "description": "This transaction will be deleted",
         "dueDate": "2025-09-20T14:00:00",
