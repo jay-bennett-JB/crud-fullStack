@@ -1,7 +1,7 @@
 //Imports
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../../components/Header";
-import CreateTaskForm from "../../components/createTaskForm";
+import TaskForm from "../../components/TaskForm";
 
 //Create Task Page Setup
 const TaskCreatePage = () => {
@@ -13,11 +13,11 @@ const TaskCreatePage = () => {
           title="Create a Task"
           subtitle="Use this form to input and create a task"
         />
-        {/* Description  */}
-        {/* Small list of Task if any */}
+        {/*Create a task form*/}
         <Box>
-          <CreateTaskForm />
+          <TaskForm />
         </Box>
+        {/* Submit Button */}
       </Box>
     </Box>
   );

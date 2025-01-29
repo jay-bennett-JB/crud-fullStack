@@ -12,11 +12,16 @@ import {
 describe("api.js Unit Tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   test("getTasks fetches all tasks", async () => {
     //Mock Axios Response
-    axios.get.mockResolvedValueOnce({
+    axiosInstance.get.mockResolvedValueOnce({
       data: [
         {
           taskID: 1,
@@ -37,7 +42,7 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const tasks = await getTasks();
-    console.debug("Mocked Axios Response: ", tasks);
+    console.debug("getTasks Completed");
 
     //Assertions
     //Returned data check
@@ -58,7 +63,7 @@ describe("api.js Unit Tests", () => {
       },
     ]);
     //Correct URL Check
-    expect(axios.get).toHaveBeenCalledWith("/transactions/");
+    expect(axiosInstance.get).toHaveBeenCalledWith("/transactions/");
   });
 
   //getSingleTask
@@ -76,11 +81,13 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const task = await getSingleTask(taskData.taskID);
-    console.debug("Returned task from getSingleTask", task);
+    console.debug("Returned task from getSingleTask");
     expect(task.taskID).toEqual(taskData.taskID);
 
     //Verify that axios.get was called with the correct URL
-    expect(axios.get).toHaveBeenCalledWith(`/transactions/${taskData.taskID}`);
+    expect(axiosInstance.get).toHaveBeenCalledWith(
+      `/transactions/${taskData.taskID}`
+    );
   });
 
   //CreateTask
@@ -98,7 +105,7 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const createdTask = await createTask(taskNewData);
-    console.debug("Created new data", createTask);
+    console.debug("Created new data");
 
     //Assertions
     expect(createdTask).toEqual(taskNewData);
@@ -111,7 +118,7 @@ describe("api.js Unit Tests", () => {
   });
 
   //Update Test
-  test("updateTask updates a task by ID", async () => {
+  test("updateTask updates a task by taskID", async () => {
     //Test Data and Mock Axios Response
     const taskID = 1;
     const updatedData = {
@@ -126,7 +133,7 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const task = await updateTask(taskID, updatedData);
-    console.debug("Updated with new data", updatedData);
+    console.debug("Updated with new data");
 
     //Assertions
     expect(task.taskID).toEqual(updatedData.taskID);
@@ -141,18 +148,18 @@ describe("api.js Unit Tests", () => {
   });
 
   //Delete Test
-  test("getTasks fetches a task by ID", async () => {
+  test("Delete fetches a task by ID and deletes", async () => {
     //Test Data and Mock Axios Response
     const taskID = 1;
-    const deletedTask = { messge: "Task deleted succesfully" };
+    const deletedTask = { message: "Task deleted succesfully" };
 
     axiosInstance.delete.mockResolvedValueOnce({ data: deletedTask });
 
     //Function Call
-    const response = await deleteTask(taskID);
-
+    const removedTask = await deleteTask(taskID);
+    console.debug("Updated with new data");
     //Assertions
-    expect(response.messge).toEqual(deletedTask.messge);
+    expect(removedTask.message).toEqual(deletedTask.message);
 
     //Verify axios put
     expect(axiosInstance.delete).toHaveBeenCalledWith(

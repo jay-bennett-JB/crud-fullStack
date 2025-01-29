@@ -1,10 +1,10 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header";
-import FullViewTask from "../../components/ViewTask";
+import SingleTaskView from "../../components/SingleTaskView";
 
 //HomePage Setup
-const HomePage = () => {
+const UpdateTaskPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -16,14 +16,42 @@ const HomePage = () => {
           title="Update a Task"
           subtitle="Update a Task from created and stored tasks."
         />
-        {/* Description  */}
-        {/* Small list of Task if any */}
+        {/* Single Task View list based on using form below to submit task ID to field  */}
         <Box>
-          <FullViewTask />
+          <SingleTaskView />
         </Box>
+        {/* Form that allows user to enter a call a task */}
+      </Box>
+      {/* Submit Button */}
+      <Box
+        display="flex"
+        justifyContent="end"
+        mt="20px"
+      >
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+        >
+          Submit
+        </Button>
+      </Box>
+      {/* Retrieve task Button */}
+      <Box
+        display="flex"
+        justifyContent="end"
+        mt="20px"
+      >
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+        >
+          Retrieve task
+        </Button>
       </Box>
     </Box>
   );
 };
 
-export default HomePage;
+export default UpdateTaskPage;

@@ -2,7 +2,7 @@
 import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import Header from "../../components/Header";
-import FullViewTask from "../../components/ViewTask";
+import FullViewTaskList from "../../components/ViewTask";
 
 //HomePage Setup
 const HomePage = () => {
@@ -20,7 +20,7 @@ const HomePage = () => {
         {/* Description  */}
         {/* Small list of Task if any */}
         <Box>
-          <FullViewTask />
+          <FullViewTaskList />
         </Box>
       </Box>
     </Box>

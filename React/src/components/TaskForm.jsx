@@ -1,4 +1,5 @@
 //Import
+import React from "react";
 import {
   Box,
   Button,
@@ -28,11 +29,7 @@ const InitialValues = {
   name: "",
   description: "",
   dueDate: null,
-  priority: {
-    low: false,
-    med: false,
-    high: false,
-  },
+  priority: "",
 };
 
 //User Schema
@@ -43,7 +40,7 @@ const userSchema = yup.object().shape({
 });
 
 //Form
-const CreateTaskForm = () => {
+const TaskForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box m="20px">
@@ -72,10 +69,10 @@ const CreateTaskForm = () => {
           touched,
           handleBlur,
           handleChange,
-          onSubmit,
           setFieldValue,
+          handleSubmit,
         }) => (
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -84,7 +81,7 @@ const CreateTaskForm = () => {
                 "& .div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              {/* Task Name */}
+              {/* Task ID Field */}
               <TextField
                 variant="filled"
                 type="text"
@@ -106,6 +103,7 @@ const CreateTaskForm = () => {
                   },
                 }}
               />
+              {/* Task Name Field */}
               <TextField
                 variant="filled"
                 type="text"
@@ -127,12 +125,12 @@ const CreateTaskForm = () => {
                   },
                 }}
               />
-              {/* Task Description*/}
+              {/* Task Description Field*/}
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Descriptopn"
+                label="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description}
@@ -151,7 +149,7 @@ const CreateTaskForm = () => {
                 }}
               />
 
-              {/* Due Date */}
+              {/* Due Date Field*/}
               {/* Date needs to be wrapped into MUI required wrappers. */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
@@ -174,7 +172,7 @@ const CreateTaskForm = () => {
                   value={values.priority}
                   name="priority"
                   onChange={handleChange}
-                  sx={{ gridColum: "span 2" }}
+                  sx={{ gridColumn: "span 2" }}
                 >
                   <FormControlLabel
                     control={<Radio value="low" />}
@@ -193,19 +191,19 @@ const CreateTaskForm = () => {
                   />
                 </RadioGroup>
               </FormControl>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="end"
-              mt="20px"
-            >
-              <Button
-                type="submit"
-                color="secondary"
-                variant="contained"
+              <Box
+                display="flex"
+                justifyContent="end"
+                mt="20px"
               >
-                Submit
-              </Button>
+                <Button
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Box>
             </Box>
           </form>
         )}
@@ -214,4 +212,4 @@ const CreateTaskForm = () => {
   );
 };
 
-export default CreateTaskForm;
+export default TaskForm;
