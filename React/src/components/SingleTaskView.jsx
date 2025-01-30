@@ -1,12 +1,55 @@
+import React, { useEffect, useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../themes";
 import { getSingleTask } from "../api";
 
 //View Task
-const SingleTaskView = () => {
+const SingleTaskView = ({ taskID }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  // useEffect() and useState()
+  const [task, setTask] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      if (!taskID) {
+        setError("No Task ID provided");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const fetchedTask = await getSingleTask(taskID); // Fetch the task by taskID
+        setTask(fetchedTask); // Set task data
+      } catch (error) {
+        setError("Failed to fetch task");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTask();
+  }, [taskID]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+  const rows = task
+    ? [
+        {
+          id: taskID,
+          taskID: task.taskID,
+          name: task.name,
+          description: task.description,
+          dueDate: task.dueDate,
+          priority: task.priority,
+        },
+      ]
+    : [];
   const columns = [
     {
       field: "taskID",
@@ -36,7 +79,7 @@ const SingleTaskView = () => {
       flex: 1,
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
+          {params.row.priority}
         </Typography>
       ),
     },
@@ -46,7 +89,7 @@ const SingleTaskView = () => {
     <Box m="20px">
       <Box
         m="40px 0 0 0"
-        height="75vh"
+        height="50vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -75,8 +118,9 @@ const SingleTaskView = () => {
       >
         <DataGrid
           checkboxSelection
-          rows={getSingleTask}
+          rows={rows}
           columns={columns}
+          loading={loading}
         />
       </Box>
     </Box>

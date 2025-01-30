@@ -3,7 +3,7 @@ import { tokens } from "../../themes";
 import Header from "../../components/Header";
 import SingleTaskView from "../../components/SingleTaskView";
 
-//HomePage Setup
+//Update Task Page Setup
 const UpdateTaskPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -35,13 +35,6 @@ const UpdateTaskPage = () => {
         >
           Submit
         </Button>
-      </Box>
-      {/* Retrieve task Button */}
-      <Box
-        display="flex"
-        justifyContent="end"
-        mt="20px"
-      >
         <Button
           type="submit"
           color="secondary"

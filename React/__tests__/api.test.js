@@ -42,7 +42,6 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const tasks = await getTasks();
-    console.debug("getTasks Completed");
 
     //Assertions
     //Returned data check
@@ -81,7 +80,6 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const task = await getSingleTask(taskData.taskID);
-    console.debug("Returned task from getSingleTask");
     expect(task.taskID).toEqual(taskData.taskID);
 
     //Verify that axios.get was called with the correct URL
@@ -105,7 +103,6 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const createdTask = await createTask(taskNewData);
-    console.debug("Created new data");
 
     //Assertions
     expect(createdTask).toEqual(taskNewData);
@@ -133,7 +130,6 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const task = await updateTask(taskID, updatedData);
-    console.debug("Updated with new data");
 
     //Assertions
     expect(task.taskID).toEqual(updatedData.taskID);
@@ -157,7 +153,6 @@ describe("api.js Unit Tests", () => {
 
     //Function Call
     const removedTask = await deleteTask(taskID);
-    console.debug("Updated with new data");
     //Assertions
     expect(removedTask.message).toEqual(deletedTask.message);
 

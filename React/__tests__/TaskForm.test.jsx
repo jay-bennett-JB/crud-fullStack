@@ -34,7 +34,6 @@ jest.mock("../src/api", () => ({
 }));
 
 const theme = createTheme({
-  // Add minimal required theme configuration
   palette: {
     primary: {
       main: "#1976d2",
@@ -61,7 +60,7 @@ describe("TaskForm", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders without crashing", () => {
+  test("renders without crashing", () => {
     render(<TaskForm />, { wrapper: Wrapper });
 
     expect(screen.getByLabelText(/Task ID/i)).toBeInTheDocument();
@@ -69,7 +68,7 @@ describe("TaskForm", () => {
     expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
   });
 
-  it("submits valid form data", async () => {
+  test("submits valid form data", async () => {
     render(<TaskForm />, { wrapper: Wrapper });
 
     fireEvent.change(screen.getByLabelText("Task ID"), {
