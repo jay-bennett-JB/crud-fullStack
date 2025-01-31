@@ -74,8 +74,7 @@ const FullViewTaskList = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
-        }}
-      >
+        }}>
         <DataGrid
           checkboxSelection
           rows={tasks}

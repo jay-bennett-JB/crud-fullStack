@@ -38,15 +38,14 @@ const theme = createTheme({ palette: { primary: { main: "#1976d2" } } });
 const Wrapper = ({ children }) => (
   <ColorModeContext.Provider>
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        {children}
-      </LocalizationProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider>
     </ThemeProvider>
   </ColorModeContext.Provider>
 );
 describe("TaskForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // eslint-disable-next-line no-undef
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 

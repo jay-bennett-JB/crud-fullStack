@@ -43,9 +43,7 @@ const Wrapper = ({ children }) => {
   return (
     <ColorModeContext.Provider value={mockColorMode}>
       <ThemeProvider theme={mockTheme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {children}
-        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
@@ -54,6 +52,7 @@ const Wrapper = ({ children }) => {
 describe("SingleTaskView Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // eslint-disable-next-line no-undef
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -83,6 +82,7 @@ describe("SingleTaskView Component", () => {
 
   test("2. Shows loading state while fetching data", async () => {
     getSingleTask.mockImplementation(
+      // eslint-disable-next-line no-undef
       () => new Promise((resolve) => setTimeout(() => resolve(mockTask), 100))
     );
 

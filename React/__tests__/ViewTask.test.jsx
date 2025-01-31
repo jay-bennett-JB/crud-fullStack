@@ -45,6 +45,7 @@ const Wrapper = ({ children }) => (
 describe("FullViewTaskList Component Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // eslint-disable-next-line no-undef
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -73,6 +74,7 @@ describe("FullViewTaskList Component Test", () => {
 
   test("2. Shows loading state initially", () => {
     getTasks.mockImplementation(
+      // eslint-disable-next-line no-undef
       () => new Promise((resolve) => setTimeout(() => resolve(mockTasks), 100))
     );
     render(<FullViewTaskList />, { wrapper: Wrapper });

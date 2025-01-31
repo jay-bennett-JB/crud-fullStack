@@ -10,8 +10,7 @@ const SuccessPage = () => {
           variant="h2"
           color={colors.primary[500]}
           fontWeight="bold"
-          sx={{ mb: "5px" }}
-        >
+          sx={{ mb: "5px" }}>
           Task has been created
         </Typography>
       </Box>

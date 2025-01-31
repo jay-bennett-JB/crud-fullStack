@@ -24,23 +24,11 @@ const UpdateTaskPage = () => {
         {/* Form that allows user to enter a call a task */}
       </Box>
       {/* Submit Button */}
-      <Box
-        display="flex"
-        justifyContent="end"
-        mt="20px"
-      >
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-        >
+      <Box display="flex" justifyContent="end" mt="20px">
+        <Button type="submit" color="secondary" variant="contained">
           Submit
         </Button>
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-        >
+        <Button type="submit" color="secondary" variant="contained">
           Retrieve task
         </Button>
       </Box>

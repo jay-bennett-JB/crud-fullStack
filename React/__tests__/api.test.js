@@ -11,6 +11,7 @@ import {
 describe("api.js Unit Tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // eslint-disable-next-line no-undef
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -82,9 +83,7 @@ describe("api.js Unit Tests", () => {
     expect(task.taskID).toEqual(taskData.taskID);
 
     //Verify that axios.get was called with the correct URL
-    expect(axiosInstance.get).toHaveBeenCalledWith(
-      `/transactions/${taskData.taskID}`
-    );
+    expect(axiosInstance.get).toHaveBeenCalledWith(`/transactions/${taskData.taskID}`);
   });
 
   //CreateTask
@@ -107,10 +106,7 @@ describe("api.js Unit Tests", () => {
     expect(createdTask).toEqual(taskNewData);
 
     //Verify axios post
-    expect(axiosInstance.post).toHaveBeenCalledWith(
-      "/transactions/",
-      taskNewData
-    );
+    expect(axiosInstance.post).toHaveBeenCalledWith("/transactions/", taskNewData);
   });
 
   //Update Test
@@ -136,10 +132,7 @@ describe("api.js Unit Tests", () => {
     expect(task.description).toEqual(updatedData.description);
 
     //Verify axios put
-    expect(axiosInstance.put).toHaveBeenCalledWith(
-      `/transactions/${taskID}`,
-      updatedData
-    );
+    expect(axiosInstance.put).toHaveBeenCalledWith(`/transactions/${taskID}`, updatedData);
   });
 
   //Delete Test
@@ -156,9 +149,7 @@ describe("api.js Unit Tests", () => {
     expect(removedTask.message).toEqual(deletedTask.message);
 
     //Verify axios put
-    expect(axiosInstance.delete).toHaveBeenCalledWith(
-      `/transactions/${taskID}`
-    );
+    expect(axiosInstance.delete).toHaveBeenCalledWith(`/transactions/${taskID}`);
   });
 
   //Error Tests
@@ -203,9 +194,7 @@ describe("api.js Unit Tests", () => {
     axiosInstance.put.mockRejectedValueOnce(new Error("Network Error"));
 
     // Ensure that calling createTask with any data throws the correct error
-    await expect(updateTask(1, { name: "Task" })).rejects.toThrow(
-      "Network Error"
-    );
+    await expect(updateTask(1, { name: "Task" })).rejects.toThrow("Network Error");
 
     // Verify that axiosInstance.post was called with the correct arguments
     expect(axiosInstance.put).toHaveBeenCalledWith("/transactions/1", {

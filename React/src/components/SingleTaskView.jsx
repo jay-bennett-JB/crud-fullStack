@@ -26,7 +26,7 @@ const SingleTaskView = ({ taskID }) => {
         const fetchedTask = await getSingleTask(taskID); // Fetch the task by taskID
         setTask(fetchedTask); // Set task data
       } catch (error) {
-        setError("Failed to fetch task");
+        setError("Failed to fetch task", error);
       } finally {
         setLoading(false);
       }

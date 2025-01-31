@@ -14,10 +14,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Link
-      to={to}
-      style={{ textDecoration: "none" }}
-    >
+    <Link to={to} style={{ textDecoration: "none" }}>
       <MenuItem
         active={selected === title}
         onClick={() => setSelected(title)}
@@ -26,8 +23,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             selected === title ? colors.greenAccent[500] : colors.grey[100],
         }}
         to={to}
-        icon={icon}
-      >
+        icon={icon}>
         <Typography> {title} </Typography>
       </MenuItem>
     </Link>
@@ -47,8 +43,7 @@ const SidebarSetup = () => {
         backgroundColor="transparent !important"
         rootStyles={{
           [`.${menuClasses.inner}`]: { backgroundColor: colors.primary[500] },
-        }}
-      >
+        }}>
         <Menu
           menuItemStyles={{
             button: {
@@ -63,25 +58,19 @@ const SidebarSetup = () => {
             icon: {
               backgroundColor: "transparent",
             },
-          }}
-        >
+          }}>
           {/* Name and other details */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
-          >
+            style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}>
             {!isCollapsed && (
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
-              >
-                <Typography
-                  variant="h3"
-                  color={colors.grey[100]}
-                >
+                ml="15px">
+                <Typography variant="h3" color={colors.grey[100]}>
                   Task CRUD App
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -98,8 +87,7 @@ const SidebarSetup = () => {
                   variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
-                  sx={{ m: "10px 0 0 0 " }}
-                >
+                  sx={{ m: "10px 0 0 0 " }}>
                   App Menu
                 </Typography>
               </Box>
