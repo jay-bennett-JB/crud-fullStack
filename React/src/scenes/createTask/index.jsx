@@ -18,6 +18,15 @@ const TaskCreatePage = () => {
           <TaskForm />
         </Box>
         {/* Submit Button */}
+        <Box>
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

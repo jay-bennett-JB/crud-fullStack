@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Box,
-  Button,
   InputAdornment,
   TextField,
   FormControl,
@@ -61,16 +60,9 @@ const TaskForm = () => {
               console.log("Error: ", error);
               actions.setSubmitting(false);
             });
-        }}>
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          setFieldValue,
-          handleSubmit,
-        }) => (
+        }}
+      >
+        {({ values, errors, touched, handleBlur, handleChange, setFieldValue, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <Box
               display="grid"
@@ -78,7 +70,8 @@ const TaskForm = () => {
               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               sx={{
                 "& .div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}>
+              }}
+            >
               {/* Task ID Field */}
               <TextField
                 variant="filled"
@@ -170,7 +163,8 @@ const TaskForm = () => {
                   value={values.priority}
                   name="priority"
                   onChange={handleChange}
-                  sx={{ gridColumn: "span 2" }}>
+                  sx={{ gridColumn: "span 2" }}
+                >
                   <FormControlLabel
                     control={<Radio value="low" />}
                     label="Low"
@@ -188,11 +182,11 @@ const TaskForm = () => {
                   />
                 </RadioGroup>
               </FormControl>
-              <Box display="flex" justifyContent="end" mt="20px">
-                <Button type="submit" color="secondary" variant="contained">
-                  Submit
-                </Button>
-              </Box>
+              <Box
+                display="flex"
+                justifyContent="end"
+                mt="20px"
+              ></Box>
             </Box>
           </form>
         )}

@@ -1,13 +1,42 @@
-import React from "react";
-import { Box, Button, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, TextField, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { tokens } from "../../themes";
+import { getSingleTask, updateTask } from "../../api";
 import Header from "../../components/Header";
 import SingleTaskView from "../../components/SingleTaskView";
+import TaskForm from "../../components/TaskForm";
 
 //Update Task Page Setup
 const UpdateTaskPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  //Input for Task ID Field and Store fetched task
+  const [taskID, setTaskID] = useState("");
+  const [taskData, setTaskData] = useState(null);
+  const navigate = useNavigate();
+
+  //Fetch Task by ID
+
+  const handleFetchTask = async () => {
+    try {
+      const data = await getSingleTask(taskID);
+      setTaskData(data);
+    } catch (error) {
+      console.error(new Error("Failed to fetch task", error));
+    }
+  };
+
+  //Update Task
+  const handleUpdateTask = async (updatedValue) => {
+    try {
+      await updateTask(taskID, updatedValue);
+      navigate("/success", { state: { message: "Task updated successfully" } });
+    } catch (error) {
+      console.error(new Error("Failed to update Task", error));
+    }
+  };
 
   return (
     <Box m="30px">
@@ -19,18 +48,39 @@ const UpdateTaskPage = () => {
         />
         {/* Single Task View list based on using form below to submit task ID to field  */}
         <Box>
-          <SingleTaskView />
+          <TextField
+            label="Task ID"
+            variant="outlined"
+            value={taskID}
+            onChange={(e) => setTaskID(e.target.value)}
+          />
+          <Button
+            onClick={handleFetchTask}
+            color="secondary"
+            variant="contained"
+          >
+            Retrieve task
+          </Button>
         </Box>
         {/* Form that allows user to enter a call a task */}
-      </Box>
-      {/* Submit Button */}
-      <Box display="flex" justifyContent="end" mt="20px">
-        <Button type="submit" color="secondary" variant="contained">
-          Submit
-        </Button>
-        <Button type="submit" color="secondary" variant="contained">
-          Retrieve task
-        </Button>
+        {taskData && (
+          <>
+            {" "}
+            <SingleTaskView task={taskID} />
+            <TaskForm
+              initialValues={taskData}
+              onSubmit={handleUpdateTask}
+            />
+            <Button
+              type="submit"
+              color="secondary"
+              variant="contained"
+              form="task-form"
+            >
+              Submit
+            </Button>
+          </>
+        )}
       </Box>
     </Box>
   );

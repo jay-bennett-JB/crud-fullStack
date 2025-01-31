@@ -7,6 +7,7 @@ import Topbar from "./scenes/global/topbar";
 import SidebarSetup from "./scenes/global/sidebar";
 import TaskCreatePage from "./scenes/createTask";
 import UpdateTaskPage from "./scenes/updateTask";
+import DeleteTaskPage from "./scenes/deleteTask";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,10 +34,10 @@ function App() {
                 path="/updateTask"
                 element={<UpdateTaskPage />}
               />
-              {/* <Route
+              <Route
                 path="/deleteTasl"
                 element={<DeleteTaskPage />}
-              /> */}
+              />
             </Routes>
           </main>
         </div>
