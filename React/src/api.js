@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 //Imports
 import axios from "axios";
 
@@ -28,7 +29,7 @@ export const getSingleTask = async (taskID) => {
     return response.data;
   } catch (error) {
     //Change to pop up at later date.
-    console.debug("Error fetching single tasks: ", error.message);
+    console.error("Error fetching single tasks: ", error.message);
     throw new Error(error.message);
   }
 };
@@ -39,7 +40,7 @@ export const createTask = async (taskData) => {
     const response = await axiosInstance.post("/transactions/", taskData);
     return response.data;
   } catch (error) {
-    console.debug("Error creating task: ", error.message);
+    console.error("Error creating task: ", error.message);
     throw new Error(error.message);
   }
 };
@@ -47,10 +48,7 @@ export const createTask = async (taskData) => {
 // Update a task
 export const updateTask = async (taskID, taskUpData) => {
   try {
-    const response = await axiosInstance.put(
-      `/transactions/${taskID}`,
-      taskUpData
-    );
+    const response = await axiosInstance.put(`/transactions/${taskID}`, taskUpData);
     return response.data;
   } catch (error) {
     console.error("Error updating task:", error.message);

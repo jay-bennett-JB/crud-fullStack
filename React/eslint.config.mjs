@@ -39,7 +39,7 @@ export default [
       // PropTypes validation (if you're not using TypeScript)
       "react/prop-types": "off", // Warn about missing PropTypes in components
 
-      // Console usage
+      // Console usage - Files api.js ignored possibly due to similarities in file names of packages and plugins.
       "no-console": ["warn", { allow: ["warn", "error", "debug", "log"] }], // Allow `console.warn` and `console.error`, but warn about other `console` usage
 
       // Disable debugger in production code
