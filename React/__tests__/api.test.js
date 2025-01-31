@@ -1,5 +1,4 @@
 // Imports
-import axios from "../__mocks__/axios";
 import {
   axiosInstance,
   createTask,

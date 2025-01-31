@@ -20,6 +20,7 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
+              // eslint-disable-next-line prettier/prettier
               <Route
                 path="/"
                 element={<HomePage />}

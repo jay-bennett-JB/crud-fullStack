@@ -1,13 +1,7 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../src/App";
-import Homepage from "../src/scenes/homepage";
-import TaskCreatePage from "../src/scenes/createTask";
-import TaskUpdatePage from "../src/scenes/updateTask";
 
 //Mocking Child Components
 jest.mock("../src/scenes/homepage", () => jest.fn(() => <div>Home Page</div>));

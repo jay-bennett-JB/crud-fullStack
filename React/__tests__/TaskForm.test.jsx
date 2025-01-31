@@ -33,13 +33,7 @@ jest.mock("../src/api", () => ({
   createTask: jest.fn(() => Promise.resolve({ data: {} })),
 }));
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#1976d2",
-    },
-  },
-});
+const theme = createTheme({ palette: { primary: { main: "#1976d2" } } });
 
 const Wrapper = ({ children }) => (
   <ColorModeContext.Provider>

@@ -12,28 +12,28 @@ export default [
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        jest: "readonly",
-        describe: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        console: "readonly",
-      },
+      globals: { ...globals.browser, ...globals.node },
+      console: "readonly",
+      window: "readonly",
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: { jsx: true },
       },
     },
-    plugins: { react: pluginReact, prettier: pluginPrettier, jest: pluginJest },
+    plugins: { react: pluginReact, prettier: pluginPrettier },
     rules: {
-      "prettier/prettier": ["error", { endOfLine: "auto" }],
+      "prettier/prettier": [
+        "error",
+        {
+          printWidth: 80, // Match Prettier configuration
+          proseWrap: "preserve", // Match Prettier configuration
+          bracketSameLine: true, // Match Prettier configuration
+          endOfLine: "lf",
+          trailingComma: "es5",
+        },
+      ],
+      "comma-dangle": "off",
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
       "react/react-in-jsx-scope": "off",
@@ -53,6 +53,32 @@ export default [
           varsIgnorePattern: "^_",
         },
       ],
+      "object-property-newline": "off", // Disable to allow properties on the same line
+      "object-curly-newline": "off", // Disable to allow properties on the same line
+    },
+  },
+  {
+    files: [
+      "**/*.test.{js,jsx}",
+      "**/__tests__/**/*.{js,jsx}",
+      "**/*.{js,mjs,cjs,jsx}",
+    ],
+    languageOptions: {
+      globals: {
+        jest: "readonly",
+        describe: "readonly",
+        test: "readonly",
+        expect: "readonly",
+        it: "readonly",
+        beforeAll: "readonly",
+        beforeEach: "readonly",
+        afterAll: "readonly",
+        afterEach: "readonly",
+        window: "readonly",
+      },
+    },
+    plugins: { jest: pluginJest },
+    rules: {
       // Jest rules
       "jest/no-disabled-tests": "warn",
       "jest/no-focused-tests": "error",
