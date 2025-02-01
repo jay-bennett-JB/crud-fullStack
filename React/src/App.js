@@ -35,7 +35,7 @@ function App() {
                 element={<UpdateTaskPage />}
               />
               <Route
-                path="/deleteTasl"
+                path="/deleteTask"
                 element={<DeleteTaskPage />}
               />
             </Routes>

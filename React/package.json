@@ -42,7 +42,8 @@
       "/node_modules/(?!(lodash-es|@mui/x-date-pickers|@babel/runtime)/)"
     ],
     "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy"
+      "\\.(css|scss)$": "identity-obj-proxy",
+      "^axios$": "<rootDir>/__mocks__/axios.js"
     },
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
@@ -80,6 +81,7 @@
     "globals": "^15.14.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^26.0.0",
     "prettier": "^3.4.2",
     "react-scripts": "^5.0.1",
     "react-test-renderer": "^18.3.1"

@@ -49,17 +49,8 @@ const TaskForm = () => {
         validationSchema={userSchema}
         // On Submit handler
         onSubmit={(values, actions) => {
-          console.log("formik on submit test", values);
-          createTask(values)
-            .then(() => {
-              console.log(values);
-              actions.setSubmitting(false);
-            })
-            .catch((error) => {
-              //preventing default form submission
-              console.log("Error: ", error);
-              actions.setSubmitting(false);
-            });
+          //Handle Submit handed to parent components on relevant changes.
+          onSubmit(values, actions);
         }}
       >
         {({ values, errors, touched, handleBlur, handleChange, setFieldValue, handleSubmit }) => (

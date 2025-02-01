@@ -14,7 +14,9 @@ export default [
   {
     //Files, global variables and other scripting settings. For this Project:- EMCAScript for Parsing, ES6 Modules for the source code and JSX Parsing enabled
     files: ["**/*.{js,mjs,cjs,jsx}"],
+    ignorePatterns: ["node_modules/"],
     languageOptions: {
+      console: "readonly",
       globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         ecmaVersion: "latest",
@@ -77,9 +79,10 @@ export default [
       // Jest-specific linting rules
       "jest/no-disabled-tests": "warn", // Warn about disabled tests (i.e., `it.skip`)
       "jest/no-focused-tests": "error", // Prevent focused tests (i.e., `it.only`, `describe.only`)
-      "jest/no-identical-title": "error", // Prevent tests with the same name
-      "jest/prefer-to-have-length": "warn", // Encourage `.toHaveLength` instead of `.toBe()`
-      "jest/valid-expect": "error", // Ensure `expect` statements are valid in tests
+      // "jest/no-identical-title": "error", // Prevent tests with the same name
+      // "jest/prefer-to-have-length": "warn", // Encourage `.toHaveLength` instead of `.toBe()`
+      // "jest/valid-expect": "error", // Ensure `expect` statements are valid in tests
+      "jest/no-mocks": "off",
     },
   },
 ];

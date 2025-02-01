@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { ThemeProvider } from "@mui/material";
 import TaskForm from "../src/components/TaskForm";
-import { createTask } from "../src/api";
 import { ColorModeContext } from "../src/themes";
 import { createTheme } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -28,11 +27,6 @@ window.matchMedia = jest.fn().mockImplementation((query) => ({
   removeEventListener: jest.fn(),
 }));
 
-// Mock API
-jest.mock("../src/api", () => ({
-  createTask: jest.fn(() => Promise.resolve({ data: {} })),
-}));
-
 const theme = createTheme({ palette: { primary: { main: "#1976d2" } } });
 
 const Wrapper = ({ children }) => (
@@ -42,6 +36,7 @@ const Wrapper = ({ children }) => (
     </ThemeProvider>
   </ColorModeContext.Provider>
 );
+
 describe("TaskForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -56,36 +51,56 @@ describe("TaskForm", () => {
   test("renders without crashing", () => {
     render(<TaskForm />, { wrapper: Wrapper });
 
+    // Check if all input fields are rendered
     expect(screen.getByLabelText(/Task ID/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Due Date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Low/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Medium/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/High/i)).toBeInTheDocument();
   });
 
-  test("submits valid form data", async () => {
+  test("validates required fields", async () => {
     render(<TaskForm />, { wrapper: Wrapper });
 
-    fireEvent.change(screen.getByLabelText("Task ID"), {
+    // Trigger blur events without filling in the required fields
+    fireEvent.blur(screen.getByLabelText(/Task ID/i));
+    fireEvent.blur(screen.getByLabelText(/Name/i));
+    fireEvent.blur(screen.getByLabelText(/Description/i));
+
+    // Check for validation error messages
+    await waitFor(() => {
+      expect(screen.findByText("This is required")).toBeInTheDocument(); // Task ID error
+    });
+    await waitFor(() => {
+      expect(screen.findByText("This is required")).toBeInTheDocument(); // Name error
+    });
+    await waitFor(() => {
+      expect(screen.findByText("This is required")).toBeInTheDocument(); // Description error
+    });
+  });
+
+  test("allows valid input for required fields", async () => {
+    render(<TaskForm />, { wrapper: Wrapper });
+
+    // Fill in the required fields with valid data
+    fireEvent.change(screen.getByLabelText(/Task ID/i), {
       target: { value: "TASK-001" },
     });
-    fireEvent.change(screen.getByLabelText("Name"), {
+    fireEvent.change(screen.getByLabelText(/Name/i), {
       target: { value: "Test Task" },
     });
-    fireEvent.change(screen.getByLabelText("Description"), {
+    fireEvent.change(screen.getByLabelText(/Description/i), {
       target: { value: "Test Description" },
     });
-    fireEvent.click(screen.getByLabelText("Medium"));
 
-    fireEvent.click(screen.getByRole("button", { name: /Submit/i }));
+    // Trigger blur events to validate
+    fireEvent.blur(screen.getByLabelText(/Task ID/i));
+    fireEvent.blur(screen.getByLabelText(/Name/i));
+    fireEvent.blur(screen.getByLabelText(/Description/i));
 
-    await waitFor(() => {
-      expect(createTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          taskID: "TASK-001",
-          name: "Test Task",
-          description: "Test Description",
-          priority: "med",
-        })
-      );
-    });
+    // Ensure no validation errors are shown
+    expect(screen.queryByText("This is required")).not.toBeInTheDocument();
   });
 });

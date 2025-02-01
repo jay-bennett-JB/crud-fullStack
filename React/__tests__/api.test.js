@@ -7,6 +7,7 @@ import {
   getTasks,
   updateTask,
 } from "../src/api";
+import axios from "axios";
 
 describe("api.js Unit Tests", () => {
   beforeEach(() => {
