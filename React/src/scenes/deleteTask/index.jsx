@@ -29,7 +29,7 @@ const DeleteTaskPage = () => {
   };
 
   //Update Task
-  const handleUpdateTask = async (deleteValue) => {
+  const handleDeleteTask = async (deleteValue) => {
     try {
       await deleteTask(taskID, deleteValue);
       navigate("/success", { state: { message: "Task deleted successfully" } });
@@ -66,10 +66,7 @@ const DeleteTaskPage = () => {
         {taskData && (
           <>
             <SingleTaskView task={taskID} />
-            <TaskForm
-              initialValues={taskData}
-              onSubmit={handleUpdateTask}
-            />
+            <TaskForm onSubmit={handleDeleteTask} />
             <Button
               type="submit"
               color="secondary"

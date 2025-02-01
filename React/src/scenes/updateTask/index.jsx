@@ -67,10 +67,7 @@ const UpdateTaskPage = () => {
           <>
             {" "}
             <SingleTaskView task={taskID} />
-            <TaskForm
-              initialValues={taskData}
-              onSubmit={handleUpdateTask}
-            />
+            <TaskForm onSubmit={handleUpdateTask} />
             <Button
               type="submit"
               color="secondary"

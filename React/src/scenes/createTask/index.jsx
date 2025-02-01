@@ -2,22 +2,30 @@
 import { Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import TaskForm from "../../components/TaskForm";
-import { createTask } from "../api";
+import { createTask } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 //Create Task Page Setup
 const TaskCreatePage = () => {
-  const handleSubmit = (values, actions) => {
-    console.log("Form submitted with values:", values);
-    createTask(values)
-      .then(() => {
-        console.log("Task created");
-        actions.setSubmitting(false);
-      })
-      .catch((error) => {
-        console.log("Error creating task:", error);
-        actions.setSubmitting(false);
-      });
+  const navigate = useNavigate();
+
+  //Handle Task Creation
+  const handleCreateTask = async (values, actions) => {
+    try {
+      const formatttedValues = {
+        ...values,
+        dueDate: values.dueDate ? values.due.format("MM-DD-YYYY") : null,
+      };
+      console.log("Form submitted with values: ", values);
+      await createTask(values);
+      navigate("/success", { state: { message: "Task created successfully" } });
+    } catch (error) {
+      console.error(new Error("Failed to create task", error));
+    } finally {
+      actions.setSubmitting(false);
+    }
   };
+
   return (
     <Box m="20px">
       {/* Header */}
@@ -28,7 +36,7 @@ const TaskCreatePage = () => {
         />
         {/*Create a task form*/}
         <Box>
-          <TaskForm onSubmit={handleSubmit} />
+          <TaskForm onSubmit={handleCreateTask} />
         </Box>
         {/* Submit Button */}
         <Box>
@@ -36,6 +44,7 @@ const TaskCreatePage = () => {
             type="submit"
             color="secondary"
             variant="contained"
+            form="task-form"
           >
             Submit
           </Button>

@@ -15,7 +15,6 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { createTask } from "../api";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 // import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
@@ -39,7 +38,7 @@ const userSchema = yup.object().shape({
 });
 
 //Form
-const TaskForm = () => {
+const TaskForm = ({ onSubmit }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box m="20px">
@@ -50,11 +49,18 @@ const TaskForm = () => {
         // On Submit handler
         onSubmit={(values, actions) => {
           //Handle Submit handed to parent components on relevant changes.
-          onSubmit(values, actions);
+          if (onSubmit) {
+            onSubmit(values, actions);
+          } else {
+            console.error("onSubmit function is not provided");
+          }
         }}
       >
         {({ values, errors, touched, handleBlur, handleChange, setFieldValue, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            id="task-form"
+            onSubmit={handleSubmit}
+          >
             <Box
               display="grid"
               gap="30px"
@@ -173,11 +179,6 @@ const TaskForm = () => {
                   />
                 </RadioGroup>
               </FormControl>
-              <Box
-                display="flex"
-                justifyContent="end"
-                mt="20px"
-              ></Box>
             </Box>
           </form>
         )}
