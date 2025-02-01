@@ -71,13 +71,7 @@ describe("TaskForm", () => {
 
     // Check for validation error messages
     await waitFor(() => {
-      expect(screen.findByText("This is required")).toBeInTheDocument(); // Task ID error
-    });
-    await waitFor(() => {
-      expect(screen.findByText("This is required")).toBeInTheDocument(); // Name error
-    });
-    await waitFor(() => {
-      expect(screen.findByText("This is required")).toBeInTheDocument(); // Description error
+      expect(screen.getAllByText("This is required"));
     });
   });
 

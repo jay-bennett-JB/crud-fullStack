@@ -35,8 +35,12 @@ class TransactionBase(BaseModel):
     taskID: int
     name: str
     description: str
-    dueDate: datetime
+    dueDate: str  # Accept a string
     priority: bool
+
+    @validator("dueDate")
+    def parse_due_date(cls, value):
+        return datetime.fromisoformat(value)
 
 
 # Transaction model - this declares the ID field and orm_mode to True

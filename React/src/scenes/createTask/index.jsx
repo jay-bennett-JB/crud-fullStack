@@ -1,31 +1,31 @@
 //Imports
+import React from "react";
 import { Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import TaskForm from "../../components/TaskForm";
 import { createTask } from "../../api";
 import { useNavigate } from "react-router-dom";
 
+//Handle Task Creation
+export const formatTaskValue = (values) => ({
+  ...values,
+  dueDate: values.dueDate ? new Date(values.dueDate).toISOString() : null,
+});
+
 //Create Task Page Setup
 const TaskCreatePage = () => {
   const navigate = useNavigate();
-
-  //Handle Task Creation
   const handleCreateTask = async (values, actions) => {
     try {
-      const formatttedValues = {
-        ...values,
-        dueDate: values.dueDate ? values.due.format("MM-DD-YYYY") : null,
-      };
-      console.log("Form submitted with values: ", values);
-      await createTask(values);
+      const formattedValues = formatTaskValue(values);
+      await createTask(formattedValues);
       navigate("/success", { state: { message: "Task created successfully" } });
     } catch (error) {
-      console.error(new Error("Failed to create task", error));
+      console.error("Failed to create task", error);
     } finally {
       actions.setSubmitting(false);
     }
   };
-
   return (
     <Box m="20px">
       {/* Header */}

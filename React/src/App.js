@@ -8,6 +8,7 @@ import SidebarSetup from "./scenes/global/sidebar";
 import TaskCreatePage from "./scenes/createTask";
 import UpdateTaskPage from "./scenes/updateTask";
 import DeleteTaskPage from "./scenes/deleteTask";
+import SuccessPage from "./scenes/createTask/success";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -37,6 +38,10 @@ function App() {
               <Route
                 path="/deleteTask"
                 element={<DeleteTaskPage />}
+              />
+              <Route
+                path="/success"
+                element={<SuccessPage />}
               />
             </Routes>
           </main>
