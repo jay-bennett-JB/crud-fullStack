@@ -4,16 +4,19 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.26.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.0",
-    "@mui/material": "^6.4.0",
+    "@mui/material": "^6.4.2",
     "@mui/x-data-grid": "^7.24.0",
-    "@mui/x-date-pickers": "^7.24.0",
+    "@mui/x-date-pickers": "^7.25.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/utils": "8.22",
     "css-select": "^5.1.0",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
-    "nth-check": "^2.1.1",
+    "glob": "^9.3.5",
     "postcss": "^8.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -30,9 +33,12 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
+  "overrides": {
+    "@typescript-eslint/utils": "5.62.0"
+  },
   "jest": {
     "transform": {
-      "^.+\\.(js|ts|jsx|tsx)$": "babel-jest"
+      "^.+\\.(js|jsx|mjs)$": "babel-jest"
     },
     "moduleFileExtensions": [
       "js",
@@ -45,7 +51,7 @@
       "\\.(css|scss)$": "identity-obj-proxy",
       "^axios$": "<rootDir>/__mocks__/axios.js"
     },
-    "testEnvironment": "jsdom",
+    "testEnvironment": "jest-environment-jsdom",
     "setupFilesAfterEnv": [
       "<rootDir>/setupTest.js"
     ]
@@ -63,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.26.5",
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.7",
     "@babel/preset-react": "^7.26.3",
@@ -71,6 +78,7 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^29.7.0",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
@@ -81,7 +89,6 @@
     "globals": "^15.14.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdom": "^26.0.0",
     "prettier": "^3.4.2",
     "react-scripts": "^5.0.1",
     "react-test-renderer": "^18.3.1"

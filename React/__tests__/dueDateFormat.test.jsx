@@ -1,6 +1,6 @@
 import React from "react";
-import { createTask } from "../src/api";
 import { formatTaskValue } from "../src/scenes/createTask/index.jsx";
+import dayjs from "dayjs";
 
 describe("Format Task Value", () => {
   beforeEach(() => {
@@ -14,14 +14,12 @@ describe("Format Task Value", () => {
   });
 
   test("should format dueDate as an ISO String, before sending", async () => {
-    const navigate = jest.fn(); //Mock Navigate Function
-
     const values = {
-      dueDate: "2025-02-10T00:00:00Z",
+      dueDate: dayjs("2025-02-10T00:00:00Z"),
     };
     const expectedFormattedValues = formatTaskValue(values);
-
-    expect(expectedFormattedValues.dueDate).toBe(new Date(values.dueDate).toISOString());
+    const expectedISO = new Date("2025-02-10T00:00:00Z").toISOString();
+    expect(expectedFormattedValues.dueDate).toBe(expectedISO);
   });
 
   test("sets dueDate to null when not provided", () => {

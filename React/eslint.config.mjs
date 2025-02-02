@@ -18,6 +18,7 @@ export default [
     languageOptions: {
       console: "readonly",
       globals: { ...globals.browser, ...globals.node },
+      parser: "@babel/eslint-parser",
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
@@ -45,7 +46,7 @@ export default [
       "no-console": ["warn", { allow: ["warn", "error", "debug", "log"] }], // Allow `console.warn` and `console.error`, but warn about other `console` usage
 
       // Disable debugger in production code
-      "no-debugger": "warn", // Warn when debugger is used
+      // "no-debugger": "warn", // Warn when debugger is used
 
       // Enforce strict equality in comparisons
       eqeqeq: ["error", "always"], // Always use `===` and not `==` to avoid unexpected type coercion
@@ -82,7 +83,7 @@ export default [
       // "jest/no-identical-title": "error", // Prevent tests with the same name
       // "jest/prefer-to-have-length": "warn", // Encourage `.toHaveLength` instead of `.toBe()`
       // "jest/valid-expect": "error", // Ensure `expect` statements are valid in tests
-      "jest/no-mocks": "off",
+      // "jest/no-mocks": "off",
     },
   },
 ];

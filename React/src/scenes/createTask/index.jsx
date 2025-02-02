@@ -5,11 +5,16 @@ import Header from "../../components/Header";
 import TaskForm from "../../components/TaskForm";
 import { createTask } from "../../api";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 //Handle Task Creation
+// In index.jsx (TaskCreatePage)
 export const formatTaskValue = (values) => ({
   ...values,
-  dueDate: values.dueDate ? new Date(values.dueDate).toISOString() : null,
+  dueDate:
+    values.dueDate && dayjs.isDayjs(values.dueDate) && values.dueDate.isValid()
+      ? values.dueDate.toISOString()
+      : null, // Convert Dayjs to ISO
 });
 
 //Create Task Page Setup

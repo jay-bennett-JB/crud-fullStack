@@ -17,6 +17,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import dayjs from "dayjs";
 // import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
 // import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
 
@@ -27,7 +28,7 @@ const InitialValues = {
   name: "",
   description: "",
   dueDate: null,
-  priority: "",
+  priority: "low",
 };
 
 //User Schema
@@ -35,6 +36,7 @@ const userSchema = yup.object().shape({
   taskID: yup.string().required("This is required"),
   name: yup.string().required("This is required"),
   description: yup.string().required("This is required"),
+  priority: yup.string().required("This is required"),
 });
 
 //Form
@@ -141,6 +143,7 @@ const TaskForm = ({ onSubmit }) => {
               {/* Date needs to be wrapped into MUI required wrappers. */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
+                  format="YYYY-MM-DD"
                   fullWidth
                   variant="filled"
                   label="Due Date"
@@ -149,6 +152,7 @@ const TaskForm = ({ onSubmit }) => {
                   value={values.dueDate || null}
                   name="dueDate"
                   error={!!touched.dueDate && !!errors.dueDate}
+                  onPasteCapture={(value) => dayjs(value, "YYYY-MM-DD")}
                   helperText={touched.dueDate && errors.dueDate}
                   sx={{ gridColumn: "span 2" }}
                 />
