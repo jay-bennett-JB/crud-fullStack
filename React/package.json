@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.26.7",
+    "@babel/eslint-parser": "^7.26.5",
     "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -11,10 +11,13 @@
     "@mui/material": "^6.4.2",
     "@mui/x-data-grid": "^7.24.0",
     "@mui/x-date-pickers": "^7.25.0",
-    "@typescript-eslint/eslint-plugin": "^8.22.0",
-    "@typescript-eslint/utils": "8.22",
     "css-select": "^5.1.0",
     "dayjs": "^1.11.13",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-prettier": "^5.2.3",
     "formik": "^2.4.6",
     "glob": "^9.3.5",
     "postcss": "^8.5.1",
@@ -33,9 +36,6 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "overrides": {
-    "@typescript-eslint/utils": "5.62.0"
-  },
   "jest": {
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "babel-jest"
@@ -51,7 +51,7 @@
       "\\.(css|scss)$": "identity-obj-proxy",
       "^axios$": "<rootDir>/__mocks__/axios.js"
     },
-    "testEnvironment": "jest-environment-jsdom",
+    "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "<rootDir>/setupTest.js"
     ]
@@ -69,23 +69,15 @@
     ]
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.26.5",
+    "@babel/core": "^7.26.7",
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.7",
     "@babel/preset-react": "^7.26.3",
-    "@eslint/js": "^9.19.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^29.7.0",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.11.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-react": "^7.37.4",
     "globals": "^15.14.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",

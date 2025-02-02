@@ -14,17 +14,18 @@ export default [
   {
     //Files, global variables and other scripting settings. For this Project:- EMCAScript for Parsing, ES6 Modules for the source code and JSX Parsing enabled
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    ignorePatterns: ["node_modules/"],
+
     languageOptions: {
-      console: "readonly",
+      // console: "readonly",
       globals: { ...globals.browser, ...globals.node },
-      parser: "@babel/eslint-parser",
+      // parser: "@babel/eslint-parser",
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: { jsx: true },
       },
     },
+
     // Plugins. For this Project:- React, Prettier, React Hooks, JSX a11y (accessibility), and Import
     plugins: {
       react: pluginReact,
@@ -56,12 +57,16 @@ export default [
   // Configuration for test files
   {
     //Files, global variables and other scripting settings. For this Project:- Jest
-    files: [
-      "**/*.test.{js,jsx}", // Test files matching the `.test.js` or `.test.jsx` pattern
-      "**/__tests__/**/*.{js,jsx}", // Test files within `__tests__` directories
-    ],
+    files: ["**/*.test.{js,jsx}", "**/__tests__/**/*.{js,jsx}"],
     languageOptions: {
+      // parser: "@babel/eslint-parser",
+      parserOptions: {
+        sourceType: "module",
+        ecmaVersion: "latest",
+        ecmaFeatures: { jsx: true },
+      },
       globals: {
+        ...globals.jest,
         // Add Jest globals to avoid "undefined" errors for testing functions
         jest: "readonly",
         describe: "readonly",

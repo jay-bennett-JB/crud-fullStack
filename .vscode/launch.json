@@ -31,15 +31,18 @@
       "name": "Debug Jest Tests",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "npm",
-      "args": ["test", "--runInBand", "--inspect-brk"],
-      "internalConsoleOptions": "neverOpen",
-      "cwd": "${workspaceFolder}/React",
-      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/React/node_modules/.bin/jest",
+      "args": ["run", "test", "--", "--runInBand"],
       "console": "integratedTerminal",
+
       "env": {
         "NODE_ENV": "test"
-      }
+      },
+      "cwd": "${workspaceFolder}/React"
+      // "runtimeArgs": [
+      //   "--require",
+      //   "babel-jest" // Ensures Babel is required before running tests
+      // ]
     }
   ]
 }
