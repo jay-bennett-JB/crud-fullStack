@@ -66,9 +66,13 @@ describe("Task Create Page", () => {
     await userEvent.type(screen.getByLabelText(/task id/i), "TASK-001");
     await userEvent.type(screen.getByLabelText(/name/i), "Test Task");
     await userEvent.type(screen.getByLabelText(/description/i), "Test Description");
-    const dateInput = screen.getByText("dueDate");
+    await userEvent.click(screen.getByLabelText(/low/i));
+
+    const dateInput = screen.getByRole("textbox", { name: /Due Date/i });
+    // console.debug("Fetched data", dateInput);
     await userEvent.clear(dateInput);
     await userEvent.type(dateInput, "2025-01-01");
+
     // Submit the form
     await userEvent.click(screen.getByText("Submit"));
 

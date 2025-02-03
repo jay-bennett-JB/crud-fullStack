@@ -4,9 +4,9 @@ import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
 import { ColorModeContext } from "../src/themes";
 import TaskForm from "../src/components/TaskForm";
+import dayjs from "dayjs";
 
 // Mock useMode hook from themes.js
 jest.mock("../src/themes", () => ({
@@ -41,7 +41,7 @@ const Wrapper = ({ children }) => (
 describe("TaskForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-     
+
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -97,5 +97,26 @@ describe("TaskForm", () => {
 
     // Ensure no validation errors are shown
     expect(screen.queryByText("This is required")).not.toBeInTheDocument();
+  });
+
+  test("Tests conversion of date to ISO String to send to back end", async () => {
+    render(<TaskForm />, { wrapper: Wrapper });
+    const dateInput = screen.getByLabelText(/due date/i);
+
+    fireEvent.change(dateInput, { target: { value: "2025-02-10" } });
+
+    //Check to see if formatted to ISO
+    const formattedDate = dayjs("2025-02-10").toISOString();
+    expect(dateInput.value).toBe(formattedDate);
+  });
+  test("should set dueDate to null when invalid date is entered", async () => {
+    render(<TaskForm />, { wrapper: Wrapper }); // Render the TaskCreatePage
+    const dateInput = screen.getByLabelText(/due date/i); // Select the DateField by its label
+
+    // Simulate an invalid date input
+    fireEvent.change(dateInput, { target: { value: "invalid date" } });
+
+    // Ensure the value is set to null (or blank, depending on how your component handles it)
+    expect(dateInput.value).toBe(""); // Assuming the field resets to empty when invalid
   });
 });

@@ -9,21 +9,16 @@ import dayjs from "dayjs";
 
 //Handle Task Creation
 // In index.jsx (TaskCreatePage)
-export const formatTaskValue = (values) => ({
-  ...values,
-  dueDate:
-    values.dueDate && dayjs.isDayjs(values.dueDate) && values.dueDate.isValid()
-      ? values.dueDate.toISOString()
-      : null, // Convert Dayjs to ISO
-});
 
 //Create Task Page Setup
 const TaskCreatePage = () => {
   const navigate = useNavigate();
   const handleCreateTask = async (values, actions) => {
     try {
-      const formattedValues = formatTaskValue(values);
+      const formattedValues = { ...values };
+      console.debug("FormattedValues: ", formattedValues);
       await createTask(formattedValues);
+
       navigate("/success", { state: { message: "Task created successfully" } });
     } catch (error) {
       console.error("Failed to create task", error);

@@ -13,7 +13,7 @@ import {
 describe("api.js Unit Tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-     
+
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
