@@ -1,16 +1,18 @@
 //Imports
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { createTask } from "../src/api";
-import TaskCreatePage from "../src/scenes/createTask/index.jsx";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { ColorModeContext } from "../src/themes";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { createTheme } from "@mui/material/styles";
+// eslint-disable-next-line no-unused-vars
 import dayjs from "dayjs";
+
+import { ColorModeContext } from "../src/themes";
+import TaskCreatePage from "../src/scenes/createTask/index.jsx";
+import { createTask } from "../src/api";
 jest.mock("../src/api", () => ({ createTask: jest.fn() }));
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
@@ -64,7 +66,7 @@ describe("Task Create Page", () => {
     await userEvent.type(screen.getByLabelText(/task id/i), "TASK-001");
     await userEvent.type(screen.getByLabelText(/name/i), "Test Task");
     await userEvent.type(screen.getByLabelText(/description/i), "Test Description");
-    const dateInput = screen.getByRole("textbox", { name: /due date/i });
+    const dateInput = screen.getByText("dueDate");
     await userEvent.clear(dateInput);
     await userEvent.type(dateInput, "2025-01-01");
     // Submit the form

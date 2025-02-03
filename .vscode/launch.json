@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "args": ["test", "--runInBand"],
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "c:\\Users\\jay_b\\Programming\\Portfolio\\taskReactPy\\React",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    {
       "name": "Debug FastAPI Backend",
       "type": "debugpy",
       "request": "launch",
@@ -12,7 +26,9 @@
       "args": ["FastAPI.main:app", "--reload", "--port", "8000"],
       "justMyCode": true,
       "jinja": true,
-      "env": { "PYTHONPATH": "${workspaceFolder}/FastAPI" },
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/FastAPI"
+      },
       "cwd": "${workspaceFolder}"
     },
     {
@@ -26,23 +42,6 @@
       },
       "cwd": "${workspaceFolder}/FastAPI",
       "justMyCode": true
-    },
-    {
-      "name": "Debug Jest Tests",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/React/node_modules/.bin/jest",
-      "args": ["run", "test", "--", "--runInBand"],
-      "console": "integratedTerminal",
-
-      "env": {
-        "NODE_ENV": "test"
-      },
-      "cwd": "${workspaceFolder}/React"
-      // "runtimeArgs": [
-      //   "--require",
-      //   "babel-jest" // Ensures Babel is required before running tests
-      // ]
     }
   ]
 }

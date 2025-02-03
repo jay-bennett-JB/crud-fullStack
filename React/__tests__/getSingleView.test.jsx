@@ -1,11 +1,13 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import SingleTaskView from "../src/components/SingleTaskView";
-import { getSingleTask } from "../src/api";
 import { ThemeProvider } from "@mui/material";
-import { ColorModeContext } from "../src/themes";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+import SingleTaskView from "../src/components/SingleTaskView";
+import { getSingleTask } from "../src/api";
+import { ColorModeContext } from "../src/themes";
+
 
 //Mocking DataGrid with valid component structure
 jest.mock("@mui/x-data-grid", () => ({
@@ -52,7 +54,7 @@ const Wrapper = ({ children }) => {
 describe("SingleTaskView Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // eslint-disable-next-line no-undef
+     
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -82,7 +84,7 @@ describe("SingleTaskView Component", () => {
 
   test("2. Shows loading state while fetching data", async () => {
     getSingleTask.mockImplementation(
-      // eslint-disable-next-line no-undef
+       
       () => new Promise((resolve) => setTimeout(() => resolve(mockTask), 100))
     );
 

@@ -1,4 +1,6 @@
 // Imports
+import axios from "axios";
+
 import {
   axiosInstance,
   createTask,
@@ -7,12 +9,11 @@ import {
   getTasks,
   updateTask,
 } from "../src/api";
-import axios from "axios";
 
 describe("api.js Unit Tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // eslint-disable-next-line no-undef
+     
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 

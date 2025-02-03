@@ -1,6 +1,7 @@
 import React from "react";
-import { formatTaskValue } from "../src/scenes/createTask/index.jsx";
 import dayjs from "dayjs";
+
+import { formatTaskValue } from "../src/scenes/createTask/index.jsx";
 
 describe("Format Task Value", () => {
   beforeEach(() => {

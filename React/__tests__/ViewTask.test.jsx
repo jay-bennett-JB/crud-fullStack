@@ -1,11 +1,13 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import FullViewTaskList from "../src/components/ViewTask";
-import { getTasks } from "../src/api";
 import { ThemeProvider } from "@mui/material";
-import { ColorModeContext } from "../src/themes";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+import FullViewTaskList from "../src/components/ViewTask";
+import { getTasks } from "../src/api";
+import { ColorModeContext } from "../src/themes";
+
 
 //Mock DataGrid
 jest.mock("@mui/x-data-grid", () => ({
@@ -45,7 +47,7 @@ const Wrapper = ({ children }) => (
 describe("FullViewTaskList Component Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // eslint-disable-next-line no-undef
+     
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -74,7 +76,7 @@ describe("FullViewTaskList Component Test", () => {
 
   test("2. Shows loading state initially", () => {
     getTasks.mockImplementation(
-      // eslint-disable-next-line no-undef
+       
       () => new Promise((resolve) => setTimeout(() => resolve(mockTasks), 100))
     );
     render(<FullViewTaskList />, { wrapper: Wrapper });
