@@ -9,8 +9,6 @@ import {
   RadioGroup,
   Radio,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -141,22 +139,23 @@ const TaskForm = ({ onSubmit }) => {
 
               {/* Due Date Field*/}
               {/* Date needs to be wrapped into MUI required wrappers. */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateField
-                  format="YYYY-MM-DD"
-                  fullWidth
-                  variant="filled"
-                  label="Due Date"
-                  onBlur={handleBlur}
-                  onChange={(newValue) => setFieldValue("dueDate", newValue)}
-                  value={values.dueDate || null}
-                  name="dueDate"
-                  error={!!touched.dueDate && !!errors.dueDate}
-                  onPasteCapture={(value) => dayjs(value, "YYYY-MM-DD")}
-                  helperText={touched.dueDate && errors.dueDate}
-                  sx={{ gridColumn: "span 2" }}
-                />
-              </LocalizationProvider>
+              <DateField
+                format="YYYY-MM-DD"
+                fullWidth
+                variant="filled"
+                label="Due Date"
+                onBlur={handleBlur}
+                onChange={(newValue) => {
+                  const formattedDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
+                  setFieldValue("dueDate", formattedDate);
+                  console.debug("onChange: ", formattedDate);
+                }}
+                value={values.dueDate ? dayjs(values.dueDate) : null}
+                name="dueDate"
+                error={!!touched.dueDate && !!errors.dueDate}
+                helperText={touched.dueDate && errors.dueDate}
+                sx={{ gridColumn: "span 2" }}
+              />
               {/* Radio Box to select priority of Task */}
               <FormControl>
                 <RadioGroup

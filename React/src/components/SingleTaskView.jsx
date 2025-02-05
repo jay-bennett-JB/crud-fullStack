@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+
 import { tokens } from "../themes";
 import { getSingleTask } from "../api";
 
@@ -78,9 +79,7 @@ const SingleTaskView = ({ taskID }) => {
       headerName: "Priority",
       flex: 1,
       renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
-          {params.row.priority}
-        </Typography>
+        <Typography color={colors.greenAccent[500]}>{params.row.priority}</Typography>
       ),
     },
   ];

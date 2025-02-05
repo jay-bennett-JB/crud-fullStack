@@ -50,7 +50,7 @@ describe("TaskForm", () => {
   });
 
   test("renders without crashing", () => {
-    render(<TaskForm />, { wrapper: Wrapper });
+    render(<TaskForm onSubmit={() => {}} />, { wrapper: Wrapper });
 
     // Check if all input fields are rendered
     expect(screen.getByLabelText(/Task ID/i)).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe("TaskForm", () => {
   });
 
   test("validates required fields", async () => {
-    render(<TaskForm />, { wrapper: Wrapper });
+    render(<TaskForm onSubmit={() => {}} />, { wrapper: Wrapper });
 
     // Trigger blur events without filling in the required fields
     fireEvent.blur(screen.getByLabelText(/Task ID/i));
@@ -77,7 +77,7 @@ describe("TaskForm", () => {
   });
 
   test("allows valid input for required fields", async () => {
-    render(<TaskForm />, { wrapper: Wrapper });
+    render(<TaskForm onSubmit={() => {}} />, { wrapper: Wrapper });
 
     // Fill in the required fields with valid data
     fireEvent.change(screen.getByLabelText(/Task ID/i), {
@@ -100,17 +100,17 @@ describe("TaskForm", () => {
   });
 
   test("Tests conversion of date to ISO String to send to back end", async () => {
-    render(<TaskForm />, { wrapper: Wrapper });
+    render(<TaskForm onSubmit={() => {}} />, { wrapper: Wrapper });
     const dateInput = screen.getByLabelText(/due date/i);
-
+    console.debug("dateInput", dateInput);
     fireEvent.change(dateInput, { target: { value: "2025-02-10" } });
 
-    //Check to see if formatted to ISO
-    const formattedDate = dayjs("2025-02-10").toISOString();
-    expect(dateInput.value).toBe(formattedDate);
+    //Check to see if formatted to formatted for datetime
+    const formattedDate = screen.getByLabelText(/due date/i).value;
+    expect(formattedDate).toBe("2025-02-10");
   });
   test("should set dueDate to null when invalid date is entered", async () => {
-    render(<TaskForm />, { wrapper: Wrapper }); // Render the TaskCreatePage
+    render(<TaskForm onSubmit={() => {}} />, { wrapper: Wrapper }); // Render the TaskCreatePage
     const dateInput = screen.getByLabelText(/due date/i); // Select the DateField by its label
 
     // Simulate an invalid date input

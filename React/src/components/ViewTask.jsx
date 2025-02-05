@@ -1,8 +1,9 @@
-import { Alert, Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import React, { useState, useEffect } from "react";
+
 import { tokens } from "../themes";
 import { getTasks } from "../api";
-import React, { useState, useEffect } from "react";
 
 //View Task
 const FullViewTaskList = () => {
@@ -26,9 +27,7 @@ const FullViewTaskList = () => {
       headerName: "Priority",
       flex: 1,
       renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
-          ${params.row.priority}
-        </Typography>
+        <Typography color={colors.greenAccent[500]}>${params.row.priority}</Typography>
       ),
     },
   ];
@@ -39,8 +38,8 @@ const FullViewTaskList = () => {
       try {
         const data = await getTasks();
         setTasks(data);
-      } catch (err) {
-        setError("Failed to fetch tasks");
+      } catch (error) {
+        setError("Failed to fetch tasks", error);
       } finally {
         setLoading(false);
       }
@@ -74,7 +73,8 @@ const FullViewTaskList = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
-        }}>
+        }}
+      >
         <DataGrid
           checkboxSelection
           rows={tasks}

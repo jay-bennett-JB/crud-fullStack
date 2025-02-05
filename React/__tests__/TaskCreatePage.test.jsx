@@ -1,6 +1,6 @@
 //Imports
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -68,10 +68,8 @@ describe("Task Create Page", () => {
     await userEvent.type(screen.getByLabelText(/description/i), "Test Description");
     await userEvent.click(screen.getByLabelText(/low/i));
 
-    const dateInput = screen.getByRole("textbox", { name: /Due Date/i });
-    // console.debug("Fetched data", dateInput);
-    await userEvent.clear(dateInput);
-    await userEvent.type(dateInput, "2025-01-01");
+    const dateInput = screen.getByLabelText(/due date/i);
+    fireEvent.change(dateInput, { target: { value: "2025-02-10" } });
 
     // Submit the form
     await userEvent.click(screen.getByText("Submit"));
@@ -83,7 +81,7 @@ describe("Task Create Page", () => {
         name: "Test Task",
         description: "Test Description",
         priority: "low",
-        dueDate: "2025-01-01T00:00:00.000Z",
+        dueDate: "2025-02-10",
       });
       expect(navigate).toHaveBeenCalledWith("/success", expect.anything());
     });

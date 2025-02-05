@@ -30,7 +30,9 @@
     "start-backend": "cd ../FastAPI && uvicorn main:app --reload",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "browserslist": {
     "production": [
@@ -55,8 +57,10 @@
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
     "babel-jest": "^29.7.0",
+    "cypress": "^14.0.1",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-prettier": "^5.2.3",

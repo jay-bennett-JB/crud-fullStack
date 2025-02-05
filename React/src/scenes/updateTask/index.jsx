@@ -28,15 +28,15 @@ const UpdateTaskPage = () => {
     }
   };
 
-  //Update Task
-  const handleUpdateTask = async (updatedValue) => {
-    try {
-      await updateTask(taskID, updatedValue);
-      navigate("/success", { state: { message: "Task updated successfully" } });
-    } catch (error) {
-      console.error(new Error("Failed to update Task", error));
-    }
-  };
+  //Update Task - Commentted out for TaskViewForm to included later down the road.
+  // const handleUpdateTask = async (updatedValue) => {
+  //   try {
+  //     await updateTask(taskID, updatedValue);
+  //     navigate("/success", { state: { message: "Task updated successfully" } });
+  //   } catch (error) {
+  //     console.error(new Error("Failed to update Task", error));
+  //   }
+  // };
 
   return (
     <Box m="30px">
@@ -65,9 +65,8 @@ const UpdateTaskPage = () => {
         {/* Form that allows user to enter a call a task */}
         {taskData && (
           <>
-            {" "}
-            <SingleTaskView task={taskID} />
-            <TaskForm onSubmit={handleUpdateTask} />
+            <SingleTaskView taskID={taskID} />
+            {/* <TaskForm onSubmit={handleUpdateTask} /> */}
             <Button
               type="submit"
               color="secondary"
