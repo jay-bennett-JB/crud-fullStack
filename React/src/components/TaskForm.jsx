@@ -74,6 +74,7 @@ const TaskForm = ({ onSubmit }) => {
                 variant="filled"
                 type="text"
                 label="Task ID"
+                data-testid="task-id"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.taskID}
@@ -96,6 +97,7 @@ const TaskForm = ({ onSubmit }) => {
                 variant="filled"
                 type="text"
                 label="Name"
+                data-testid="task-name"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
@@ -119,6 +121,7 @@ const TaskForm = ({ onSubmit }) => {
                 variant="filled"
                 type="text"
                 label="Description"
+                data-testid="task-desc"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description}
@@ -144,6 +147,7 @@ const TaskForm = ({ onSubmit }) => {
                 fullWidth
                 variant="filled"
                 label="Due Date"
+                data-testid="task-due"
                 onBlur={handleBlur}
                 onChange={(newValue) => {
                   const formattedDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
@@ -162,6 +166,7 @@ const TaskForm = ({ onSubmit }) => {
                   style={{ display: "flex", flexDirection: "row" }}
                   value={values.priority}
                   name="priority"
+                  data-testid="task-priority"
                   onChange={handleChange}
                   sx={{ gridColumn: "span 2" }}
                 >

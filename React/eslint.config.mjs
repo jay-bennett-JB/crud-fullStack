@@ -9,7 +9,7 @@ import prettierConfig from "eslint-config-prettier";
 import pluginJest from "eslint-plugin-jest";
 import babelParser from "@babel/eslint-parser";
 import eslintPluginImport from "eslint-plugin-import";
-import eslintPluginCypress from "eslint-plugin-cypress";
+import pluginCypress from "eslint-plugin-cypress";
 
 // Base ESLint Configuration
 export default defineConfig([
@@ -19,7 +19,7 @@ export default defineConfig([
     ignores: ["node_modules/", "dist/", "build/"],
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+      globals: { ...globals.browser, ...globals.node, ...globals.cypress },
       parser: babelParser,
       parserOptions: {
         ecmaVersion: "latest",
@@ -95,22 +95,26 @@ export default defineConfig([
 
   // Cypress-Specific Configuration
   {
-    files: ["cypress/**/*.cy.{js,jsx}", "cypress/support/**/*.{js,jsx}"],
+    files: [
+      "cypress/**/*.cy.{js,jsx}",
+      "cypress/support/**/*.{js,jsx}",
+      "cypress/e2e/**/*.cy.{js,jsx}",
+    ],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node, ...globals.cypress },
       parser: babelParser,
       parserOptions: {
         sourceType: "module",
         ecmaVersion: "latest",
-        ecmaFeatures: { jsx: true },
       },
     },
     plugins: {
-      cypress: eslintPluginCypress,
+      cypress: pluginCypress,
       import: eslintPluginImport,
       react: pluginReact,
       prettier: pluginPrettier,
     },
+    extends: ["plugin: cypress/recommended"],
     settings: {
       "import/resolver": {
         node: { extensions: [".js", ".jsx", ".mjs", ".ts", ".tsx"] },
