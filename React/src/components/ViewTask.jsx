@@ -76,6 +76,7 @@ const FullViewTaskList = () => {
         }}
       >
         <DataGrid
+          data-testid="task-Full-list"
           checkboxSelection
           rows={tasks}
           columns={columns}

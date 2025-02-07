@@ -116,6 +116,7 @@ const SingleTaskView = ({ taskID }) => {
         }}
       >
         <DataGrid
+          data-testid="task-single-list"
           checkboxSelection
           rows={rows}
           columns={columns}

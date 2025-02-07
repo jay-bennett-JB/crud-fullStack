@@ -73,8 +73,8 @@ const TaskForm = ({ onSubmit }) => {
               <TextField
                 variant="filled"
                 type="text"
-                label="Task ID"
                 data-testid="task-id"
+                label="Task ID"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.taskID}
@@ -120,8 +120,8 @@ const TaskForm = ({ onSubmit }) => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Description"
                 data-testid="task-desc"
+                label="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description}
