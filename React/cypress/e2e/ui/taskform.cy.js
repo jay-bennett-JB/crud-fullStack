@@ -5,15 +5,13 @@ describe("Task From", () => {
   });
 
   it("should fill and submit the task form", () => {
-    const dueDate = new Date("2025-02-10").toISOString();
-
     cy.get('[id="task-form"]').within(() => {
       cy.get('[data-testid="task-id"]').type("1");
       cy.get('[data-testid="task-name"]').type("New Cypress Task");
       cy.get('[data-testid="task-desc"]').type("This is a test task");
 
       // Set date dynamically
-      cy.get('[data-testid="task-due"]').invoke("val", dueDate).trigger("change");
+      cy.get('[data-testid="task-due"]').find("input").type("2025-02-10");
 
       cy.get('[data-testid="task-priority"]').find('input[value="high"]').check();
     });
@@ -25,6 +23,8 @@ describe("Task From", () => {
     cy.get('[data-testid="submit-btn"]').click();
 
     cy.wait("@createTask").its("response.statusCode").should("eq", 200);
+
+    cy.url().should("include", "/success");
   });
 
   it("should display tasks from the API", () => {
@@ -64,7 +64,7 @@ describe("Task From", () => {
 
     //Second Row Test
     cy.get('[data-testid="task-Full-list"] .MuiDataGrid-row')
-      .first()
+      .eq(1)
       .should("contain", "Fetched Task")
       .and("contain", "Loaded from API")
       .and("contain", "2025-02-10");

@@ -151,7 +151,6 @@ const TaskForm = ({ onSubmit }) => {
                 onChange={(newValue) => {
                   const formattedDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
                   setFieldValue("dueDate", formattedDate);
-                  console.debug("onChange: ", formattedDate);
                 }}
                 value={values.dueDate ? dayjs(values.dueDate) : null}
                 name="dueDate"

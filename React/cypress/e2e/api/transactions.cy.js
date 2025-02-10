@@ -7,7 +7,7 @@ describe("Transactions API", () => {
       taskID: 1,
       name: "Test Task",
       description: "Test Description",
-      dueDate: new Date().toISOString(),
+      dueDate: "2025-01-01",
       priority: "low",
     }).then((response) => {
       expect(response.status).to.eq(200);
@@ -28,7 +28,7 @@ describe("Transactions API", () => {
       taskID: 2,
       name: "Single Task",
       description: "Get this task",
-      dueDate: new Date().toISOString(),
+      dueDate: "2025-01-01",
       priority: "low",
     }).then((postResponse) => {
       cy.request("GET", `${apiURL}/${postResponse.body.id}`).then((response) => {
@@ -43,14 +43,14 @@ describe("Transactions API", () => {
       taskID: 3,
       name: "Old Task",
       description: "Update this task",
-      dueDate: new Date().toISOString(),
+      dueDate: "2025-01-01",
       priority: "low",
     }).then((postResponse) => {
       cy.request("PUT", `${apiURL}/${postResponse.body.id}`, {
         taskID: 3,
         name: "Updated Task",
         description: "Updated description",
-        dueDate: new Date().toISOString(),
+        dueDate: "2025-01-01",
         priority: "med",
       }).then((response) => {
         expect(response.status).to.eq(200);
@@ -65,7 +65,7 @@ describe("Transactions API", () => {
       taskID: 4,
       name: "Delete Task",
       description: "This will be deleted",
-      dueDate: new Date().toISOString(),
+      dueDate: "2025-01-01",
       priority: "low",
     }).then((postResponse) => {
       cy.request("DELETE", `${apiURL}/${postResponse.body.id}`).then((deleteResponse) => {
