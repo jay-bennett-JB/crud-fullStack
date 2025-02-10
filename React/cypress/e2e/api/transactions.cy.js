@@ -8,7 +8,7 @@ describe("Transactions API", () => {
       name: "Test Task",
       description: "Test Description",
       dueDate: new Date().toISOString(),
-      priority: true,
+      priority: "low",
     }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property("id");
@@ -29,7 +29,7 @@ describe("Transactions API", () => {
       name: "Single Task",
       description: "Get this task",
       dueDate: new Date().toISOString(),
-      priority: false,
+      priority: "low",
     }).then((postResponse) => {
       cy.request("GET", `${apiURL}/${postResponse.body.id}`).then((response) => {
         expect(response.status).to.eq(200);
@@ -44,18 +44,18 @@ describe("Transactions API", () => {
       name: "Old Task",
       description: "Update this task",
       dueDate: new Date().toISOString(),
-      priority: false,
+      priority: "low",
     }).then((postResponse) => {
       cy.request("PUT", `${apiURL}/${postResponse.body.id}`, {
         taskID: 3,
         name: "Updated Task",
         description: "Updated description",
         dueDate: new Date().toISOString(),
-        priority: true,
+        priority: "med",
       }).then((response) => {
         expect(response.status).to.eq(200);
         expect(response.body.name).to.eq("Updated Task");
-        expect(response.body.priority).to.eq(true);
+        expect(response.body.priority).to.eq("med");
       });
     });
   });
@@ -66,7 +66,7 @@ describe("Transactions API", () => {
       name: "Delete Task",
       description: "This will be deleted",
       dueDate: new Date().toISOString(),
-      priority: false,
+      priority: "low",
     }).then((postResponse) => {
       cy.request("DELETE", `${apiURL}/${postResponse.body.id}`).then((deleteResponse) => {
         expect(deleteResponse.status).to.eq(200);

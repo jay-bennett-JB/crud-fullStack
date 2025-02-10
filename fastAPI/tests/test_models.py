@@ -17,8 +17,8 @@ def test_create_transaction(dbTest):
         "taskID": 1,
         "name": "Test Transaction",
         "description": "A transaction to test the create operation",
-        "dueDate": "2025-12-31T12:00:00",
-        "priority": True,
+        "dueDate": "2025-12-31",
+        "priority": "low",
     }
 
     # Make a POST request to create a transaction
@@ -47,8 +47,8 @@ def test_read_transactions(dbTest):
         "taskID": 1,
         "name": "Read Test Transaction",
         "description": "Transaction for reading",
-        "dueDate": "2025-11-30T10:00:00",
-        "priority": False,
+        "dueDate": "2025-11-30",
+        "priority": "low",
     }
     client.post("/transactions/", json=transaction_data)
 
@@ -76,8 +76,8 @@ def test_read_single_transaction(dbTest):
         "taskID": 1,
         "name": "Single Transaction Test",
         "description": "Transaction to test GET by ID",
-        "dueDate": "2025-11-01T10:00:00",
-        "priority": True,
+        "dueDate": "2025-11-01",
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]
@@ -106,8 +106,8 @@ def test_update_transaction(dbTest):
         "taskID": 1,
         "name": "Update Test Transaction",
         "description": "This transaction will be updated",
-        "dueDate": "2025-10-20T15:00:00",
-        "priority": True,
+        "dueDate": "2025-10-20",
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]
@@ -117,8 +117,8 @@ def test_update_transaction(dbTest):
         "taskID": 2,
         "name": "Updated Transaction Name",
         "description": "Updated transaction description",
-        "dueDate": "2025-10-21T16:00:00",
-        "priority": False,
+        "dueDate": "2025-10-21",
+        "priority": "med",
     }
 
     # Make a PUT request to update the transaction
@@ -147,8 +147,8 @@ def test_delete_transaction(dbTest):
         "taskID": 1,
         "name": "Delete Test Transaction",
         "description": "This transaction will be deleted",
-        "dueDate": "2025-09-20T14:00:00",
-        "priority": False,
+        "dueDate": "2025-09-20",
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]

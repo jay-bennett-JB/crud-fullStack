@@ -27,7 +27,7 @@ const FullViewTaskList = () => {
       headerName: "Priority",
       flex: 1,
       renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>${params.row.priority}</Typography>
+        <Typography color={colors.greenAccent[500]}>{params.row.priority}</Typography>
       ),
     },
   ];

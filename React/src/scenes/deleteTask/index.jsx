@@ -66,12 +66,13 @@ const DeleteTaskPage = () => {
         {taskData && (
           <>
             <SingleTaskView task={taskID} />
-            <TaskForm onSubmit={handleDeleteTask} />
+
             <Button
               type="submit"
               color="secondary"
               variant="contained"
               form="task-form"
+              onClick={handleDeleteTask}
             >
               Delete
             </Button>

@@ -34,7 +34,6 @@ const userSchema = yup.object().shape({
   taskID: yup.string().required("This is required"),
   name: yup.string().required("This is required"),
   description: yup.string().required("This is required"),
-  priority: yup.string().required("This is required"),
 });
 
 //Form

@@ -1,8 +1,11 @@
 //Imports
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
+import { tokens } from "../../themes";
 
 //Create Task Page Setup
 const SuccessPage = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
     <Box m="20px">
       <Box>
@@ -10,7 +13,8 @@ const SuccessPage = () => {
           variant="h2"
           color={colors.primary[500]}
           fontWeight="bold"
-          sx={{ mb: "5px" }}>
+          sx={{ mb: "5px" }}
+        >
           Task has been created
         </Typography>
       </Box>

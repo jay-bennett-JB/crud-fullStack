@@ -8,7 +8,6 @@ import SingleTaskView from "../src/components/SingleTaskView";
 import { getSingleTask } from "../src/api";
 import { ColorModeContext } from "../src/themes";
 
-
 //Mocking DataGrid with valid component structure
 jest.mock("@mui/x-data-grid", () => ({
   DataGrid: ({ rows, checkboxSelection }) => (
@@ -54,7 +53,7 @@ const Wrapper = ({ children }) => {
 describe("SingleTaskView Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-     
+
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -67,7 +66,7 @@ describe("SingleTaskView Component", () => {
     name: "Test Task",
     description: "Test Description",
     dueDate: "2025-01-29",
-    priority: "High",
+    priority: "high",
   };
   test("1. Fetches and displays task data", async () => {
     getSingleTask.mockResolvedValue(mockTask);
@@ -84,7 +83,6 @@ describe("SingleTaskView Component", () => {
 
   test("2. Shows loading state while fetching data", async () => {
     getSingleTask.mockImplementation(
-       
       () => new Promise((resolve) => setTimeout(() => resolve(mockTask), 100))
     );
 

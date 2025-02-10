@@ -1,5 +1,5 @@
 # Imports
-from sqlalchemy import Column, Integer, String, Boolean, Float, Date, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, Float, Date
 from database import Base
 
 
@@ -13,5 +13,5 @@ class Transaction(Base):
     taskID = Column(Integer)
     name = Column(String)
     description = Column(String)
-    dueDate = Column(DateTime)
-    priority = Column(Boolean, nullable=False, default=False)
+    dueDate = Column(Date)
+    priority = Column(String)

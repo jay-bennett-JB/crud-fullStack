@@ -41,11 +41,11 @@ const TaskCreatePage = () => {
         {/* Submit Button */}
         <Box>
           <Button
-            data-testid="submit-btn"
             type="submit"
             color="secondary"
             variant="contained"
             form="task-form"
+            data-testid="submit-btn"
           >
             Submit
           </Button>

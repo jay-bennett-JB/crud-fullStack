@@ -29,15 +29,15 @@ describe("api.js Unit Tests", () => {
           taskID: 1,
           name: "Task 1",
           description: "Test task",
-          dueDate: "Test date",
-          priority: false,
+          dueDate: "2020-05-01",
+          priority: "low",
         },
         {
           taskID: 1,
           name: "Task 2",
           description: "Test task 2",
-          dueDate: "Test date 2",
-          priority: false,
+          dueDate: "2020-05-01",
+          priority: "med",
         },
       ],
     });
@@ -52,15 +52,15 @@ describe("api.js Unit Tests", () => {
         taskID: 1,
         name: "Task 1",
         description: "Test task",
-        dueDate: "Test date",
-        priority: false,
+        dueDate: "2020-05-01",
+        priority: "low",
       },
       {
         taskID: 1,
         name: "Task 2",
         description: "Test task 2",
-        dueDate: "Test date 2",
-        priority: false,
+        dueDate: "2020-05-01",
+        priority: "med",
       },
     ]);
     //Correct URL Check
@@ -74,8 +74,8 @@ describe("api.js Unit Tests", () => {
       taskID: 1,
       name: "Task 1",
       description: "Test task",
-      dueDate: "Test date",
-      priority: false,
+      dueDate: "2020-05-01",
+      priority: "low",
     };
 
     axiosInstance.get.mockResolvedValueOnce({ data: taskData });
@@ -95,8 +95,8 @@ describe("api.js Unit Tests", () => {
       taskID: 1,
       name: "New Task",
       description: "Test task",
-      dueDate: "Test date",
-      priority: false,
+      dueDate: "2020-05-01",
+      priority: "low",
     };
 
     axiosInstance.post.mockResolvedValueOnce({ data: taskNewData });
@@ -119,8 +119,8 @@ describe("api.js Unit Tests", () => {
       taskID: 1,
       name: "New Task",
       description: "Test task",
-      dueDate: "Test date",
-      priority: false,
+      dueDate: "2020-05-01",
+      priority: "low",
     };
 
     axiosInstance.put.mockResolvedValueOnce({ data: updatedData });

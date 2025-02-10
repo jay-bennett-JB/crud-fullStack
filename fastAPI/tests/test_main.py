@@ -16,7 +16,7 @@ def test_create_transaction(dbTest):
         "name": "Test Transaction",
         "description": " A Test Transaction",
         "dueDate": "2025-12-21T12:00:00",
-        "priority": True,
+        "priority": "low",
     }
 
     # Post request
@@ -42,7 +42,7 @@ def test_read_transaction(dbTest):
         "name": "Read Test Transaction",
         "description": " A Test Transaction",
         "dueDate": "2025-12-21T12:00:00",
-        "priority": True,
+        "priority": "low",
     }
     client.post("/transactions/", json=transaction_data)
 
@@ -69,7 +69,7 @@ def test_read_single_transaction(dbTest):
         "name": "Single Transaction Test",
         "description": "Transaction to test GET by ID",
         "dueDate": "2025-11-01T10:00:00",
-        "priority": True,
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]
@@ -97,7 +97,7 @@ def test_update_transaction(dbTest):
         "name": "Update Test Transaction",
         "description": "This transaction will be updated",
         "dueDate": "2025-10-20T15:00:00",
-        "priority": True,
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]
@@ -108,7 +108,7 @@ def test_update_transaction(dbTest):
         "name": "Updated Transaction Name",
         "description": "Updated transaction description",
         "dueDate": "2025-10-21T16:00:00",
-        "priority": False,
+        "priority": "high",
     }
 
     # Put request and assert response == 200
@@ -132,11 +132,11 @@ def test_delete_transaction(dbTest):
     client = get_test_client()
     # Create a transaction first to delete later
     transaction_data = {
-        "taskID": "1",
+        "taskID": 1,
         "name": "Delete Test Transaction",
         "description": "This transaction will be deleted",
-        "dueDate": "2025-09-20T14:00:00",
-        "priority": False,
+        "dueDate": "2025-09-20",
+        "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
     transaction_id = create_response.json()["id"]

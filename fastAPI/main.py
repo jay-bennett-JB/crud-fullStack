@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from database import SessionLocal, engine
 import models
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
+from datetime import date
 from typing import List
 import logging
 
@@ -36,8 +36,8 @@ class TransactionBase(BaseModel):
     taskID: int
     name: str
     description: str
-    dueDate: datetime
-    priority: bool
+    dueDate: date
+    priority: str
 
 
 # Transaction model - this declares the ID field and orm_mode to True

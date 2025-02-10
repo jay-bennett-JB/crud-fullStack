@@ -8,7 +8,6 @@ import FullViewTaskList from "../src/components/ViewTask";
 import { getTasks } from "../src/api";
 import { ColorModeContext } from "../src/themes";
 
-
 //Mock DataGrid
 jest.mock("@mui/x-data-grid", () => ({
   DataGrid: ({ rows, columns, loading }) => (
@@ -36,9 +35,7 @@ const mockColorMode = { toggleColorMode: jest.fn() };
 const Wrapper = ({ children }) => (
   <ColorModeContext.Provider value={mockColorMode}>
     <ThemeProvider theme={mockTheme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        {children}
-      </LocalizationProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider>
     </ThemeProvider>
   </ColorModeContext.Provider>
 );
@@ -47,7 +44,7 @@ const Wrapper = ({ children }) => (
 describe("FullViewTaskList Component Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-     
+
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -61,7 +58,7 @@ describe("FullViewTaskList Component Test", () => {
       name: "Task 1",
       description: "Description 1",
       dueDate: "2025-01-01",
-      priority: "High",
+      priority: "high",
     },
   ];
   test("1. Displays tasks after loading", async () => {
@@ -70,13 +67,12 @@ describe("FullViewTaskList Component Test", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Task 1")).toBeInTheDocument();
-      expect(screen.getByText("High")).toBeInTheDocument();
+      expect(screen.getByText("high")).toBeInTheDocument();
     });
   });
 
   test("2. Shows loading state initially", () => {
     getTasks.mockImplementation(
-       
       () => new Promise((resolve) => setTimeout(() => resolve(mockTasks), 100))
     );
     render(<FullViewTaskList />, { wrapper: Wrapper });
