@@ -11,7 +11,7 @@ import SidebarSetup from "./scenes/global/sidebar";
 import TaskCreatePage from "./scenes/createTask";
 import UpdateTaskPage from "./scenes/updateTask";
 import DeleteTaskPage from "./scenes/deleteTask";
-import SuccessPage from "./scenes/createTask/success";
+import SuccessPage from "./scenes/global/success";
 
 function App() {
   const [theme, colorMode] = useMode();

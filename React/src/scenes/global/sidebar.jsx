@@ -14,17 +14,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
+      component={<Link to={to} />} // Set Link as the root component
       active={selected === title}
-      style={{ color: colors.grey[100] }}
+      style={{ color: colors.grey[100], textDecoration: "none" }} // Add textDecoration here
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Link
-        to={to}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <Typography> {title} </Typography>
-      </Link>
+      <Typography>{title}</Typography>
     </MenuItem>
   );
 };
