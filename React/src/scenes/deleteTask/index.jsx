@@ -5,7 +5,6 @@ import { tokens } from "../../themes";
 import { getSingleTask, deleteTask } from "../../api";
 import Header from "../../components/Header";
 import SingleTaskView from "../../components/SingleTaskView";
-import TaskForm from "../../components/TaskForm";
 
 //Update Task Page Setup
 const DeleteTaskPage = () => {
@@ -65,7 +64,7 @@ const DeleteTaskPage = () => {
         {/* Form that allows user to enter a call a task */}
         {taskData && (
           <>
-            <SingleTaskView task={taskID} />
+            <SingleTaskView taskID={taskID} />
 
             <Button
               type="submit"
