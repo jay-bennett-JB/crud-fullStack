@@ -10,7 +10,7 @@ const HomePage = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box m="30px">
+    <Box m="50px">
       {/* Header */}
       <Box>
         <Header

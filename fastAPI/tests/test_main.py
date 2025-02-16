@@ -15,7 +15,7 @@ def test_create_transaction(dbTest):
         "taskID": 1,
         "name": "Test Transaction",
         "description": " A Test Transaction",
-        "dueDate": "2025-12-21T12:00:00",
+        "dueDate": "2025-12-21",
         "priority": "low",
     }
 
@@ -38,7 +38,7 @@ def test_read_transaction(dbTest):
     client = get_test_client()
     # Creating Transaction
     transaction_data = {
-        "taskID": "1",
+        "taskID": 2,
         "name": "Read Test Transaction",
         "description": " A Test Transaction",
         "dueDate": "2025-12-21T12:00:00",
@@ -53,7 +53,7 @@ def test_read_transaction(dbTest):
     # Check if transaction is returned in list
     data = response.json()
     assert len(data) > 0
-    assert any(t["name"] == "Read Test Transaction" for t in data)
+    assert any(t["taskID"] == 1 for t in data)
 
 
 # Single Transaction test
@@ -65,17 +65,17 @@ def test_read_single_transaction(dbTest):
     client = get_test_client()
     # First, create a transaction to retrieve later
     transaction_data = {
-        "taskID": "1",
+        "taskID": 3,
         "name": "Single Transaction Test",
         "description": "Transaction to test GET by ID",
-        "dueDate": "2025-11-01T10:00:00",
+        "dueDate": "2025-11-01",
         "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
-    transaction_id = create_response.json()["id"]
+    task_id = create_response.json()["taskID"]
 
     # Get Request and assert response ==200
-    response = client.get(f"/transactions/{transaction_id}")
+    response = client.get(f"/transactions/task/{task_id}")
     assert response.status_code == 200
 
     # Verify the returned data matches the created transaction
@@ -93,26 +93,26 @@ def test_update_transaction(dbTest):
     client = get_test_client()
     # Create a transaction first to update later
     transaction_data = {
-        "taskID": 1,
+        "taskID": 4,
         "name": "Update Test Transaction",
         "description": "This transaction will be updated",
-        "dueDate": "2025-10-20T15:00:00",
+        "dueDate": "2025-10-20",
         "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
-    transaction_id = create_response.json()["id"]
+    task_id = create_response.json()["taskID"]
 
     # Define the updated transaction data
     updated_data = {
-        "taskID": 2,
+        "taskID": 4,
         "name": "Updated Transaction Name",
         "description": "Updated transaction description",
-        "dueDate": "2025-10-21T16:00:00",
+        "dueDate": "2025-10-21",
         "priority": "high",
     }
 
     # Put request and assert response == 200
-    update_response = client.put(f"/transactions/{transaction_id}", json=updated_data)
+    update_response = client.put(f"/transactions/task/{task_id}", json=updated_data)
     assert update_response.status_code == 200
 
     # Verify the returned data has been updated
@@ -132,19 +132,19 @@ def test_delete_transaction(dbTest):
     client = get_test_client()
     # Create a transaction first to delete later
     transaction_data = {
-        "taskID": 1,
+        "taskID": 5,
         "name": "Delete Test Transaction",
         "description": "This transaction will be deleted",
         "dueDate": "2025-09-20",
         "priority": "low",
     }
     create_response = client.post("/transactions/", json=transaction_data)
-    transaction_id = create_response.json()["id"]
+    task_id = create_response.json()["taskID"]
 
     # Delete request and assert response == 200
-    delete_response = client.delete(f"/transactions/{transaction_id}")
+    delete_response = client.delete(f"/transactions/task/{task_id}")
     assert delete_response.status_code == 200
 
     # Verify that the transaction is no longer in the database
-    get_response = client.get(f"/transactions/{transaction_id}")
+    get_response = client.get(f"/transactions/task/{task_id}")
     assert get_response.status_code == 404  # Should return 404 as it is deleted

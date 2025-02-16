@@ -13,22 +13,19 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Link
-      to={to}
-      style={{ textDecoration: "none" }}
+    <MenuItem
+      active={selected === title}
+      style={{ color: colors.grey[100] }}
+      onClick={() => setSelected(title)}
+      icon={icon}
     >
-      <MenuItem
-        active={selected === title}
-        onClick={() => setSelected(title)}
-        style={{
-          color: selected === title ? colors.greenAccent[500] : colors.grey[100],
-        }}
+      <Link
         to={to}
-        icon={icon}
+        style={{ textDecoration: "none", color: "inherit" }}
       >
         <Typography> {title} </Typography>
-      </MenuItem>
-    </Link>
+      </Link>
+    </MenuItem>
   );
 };
 

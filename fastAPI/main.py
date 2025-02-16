@@ -84,11 +84,11 @@ async def read_transactions(db: db_dependency, skip: int = 0, limit: int = 100):
 
 
 # 2nd GET Function for SINGLE Transaction
-@app.get("/transactions/{transaction_id}", response_model=TransactionModel)
-async def read_single_transaction(transaction_id: int, db: db_dependency):
+@app.get("/transactions/task/{task_id}", response_model=TransactionModel)
+async def read_single_transaction(task_id: int, db: db_dependency):
     db_transaction = (
         db.query(models.Transaction)
-        .filter(models.Transaction.id == transaction_id)
+        .filter(models.Transaction.taskID == task_id)
         .first()
     )
     if db_transaction is None:
@@ -97,13 +97,13 @@ async def read_single_transaction(transaction_id: int, db: db_dependency):
 
 
 # Put Function
-@app.put("/transactions/{transaction_id}", response_model=TransactionModel)
+@app.put("/transactions/task/{task_id}", response_model=TransactionModel)
 async def update_transactions(
-    transaction_id: int, transaction: TransactionBase, db: db_dependency
+    task_id: int, transaction: TransactionBase, db: db_dependency
 ):
     db_transaction = (
         db.query(models.Transaction)
-        .filter(models.Transaction.id == transaction_id)
+        .filter(models.Transaction.taskID == task_id)
         .first()
     )
     if not db_transaction:
@@ -120,15 +120,15 @@ async def update_transactions(
 
 
 # Delete Function
-@app.delete("/transactions/{transaction_id}")
-async def delete_transaction(transaction_id: int, db: db_dependency):
+@app.delete("/transactions/task/{task_id}")
+async def delete_transaction(task_id: int, db: db_dependency):
     db_transaction = (
         db.query(models.Transaction)
-        .filter(models.Transaction.id == transaction_id)
+        .filter(models.Transaction.taskID == task_id)
         .first()
     )
     if not db_transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
     db.delete(db_transaction)
     db.commit()
-    return {"message": f"Transaction{transaction_id} deleted successfully"}
+    return {"message": f"Transaction{task_id} deleted successfully"}

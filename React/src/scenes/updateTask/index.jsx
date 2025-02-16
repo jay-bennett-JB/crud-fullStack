@@ -1,3 +1,4 @@
+//Imports
 import React, { useState } from "react";
 import { Box, Button, TextField, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +19,6 @@ const UpdateTaskPage = () => {
   const navigate = useNavigate();
 
   //Fetch Task by ID
-
   const handleFetchTask = async () => {
     try {
       const data = await getSingleTask(taskID);
@@ -29,14 +29,14 @@ const UpdateTaskPage = () => {
   };
 
   //Update Task - Commentted out for TaskViewForm to included later down the road.
-  // const handleUpdateTask = async (updatedValue) => {
-  //   try {
-  //     await updateTask(taskID, updatedValue);
-  //     navigate("/success", { state: { message: "Task updated successfully" } });
-  //   } catch (error) {
-  //     console.error(new Error("Failed to update Task", error));
-  //   }
-  // };
+  const handleUpdateTask = async (updatedValue) => {
+    try {
+      await updateTask(taskID, updatedValue);
+      navigate("/success", { state: { message: "Task updated successfully" } });
+    } catch (error) {
+      console.error(new Error("Failed to update Task", error));
+    }
+  };
 
   return (
     <Box m="30px">
@@ -66,7 +66,7 @@ const UpdateTaskPage = () => {
         {taskData && (
           <>
             <SingleTaskView taskID={taskID} />
-            {/* <TaskForm onSubmit={handleUpdateTask} /> */}
+            <TaskForm onSubmit={handleUpdateTask} />
             <Button
               type="submit"
               color="secondary"

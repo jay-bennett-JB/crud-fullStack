@@ -27,6 +27,7 @@ function App() {
               <Topbar />
               <Routes>
                 <Route
+                  exact
                   path="/"
                   element={<HomePage />}
                 />

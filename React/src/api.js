@@ -25,7 +25,7 @@ export const getTasks = async () => {
 //SINGLE Transaction Fetch
 export const getSingleTask = async (taskID) => {
   try {
-    const response = await axiosInstance.get(`/transactions/${taskID}`);
+    const response = await axiosInstance.get(`/transactions/task/${taskID}`);
     return response.data;
   } catch (error) {
     //Change to pop up at later date.
@@ -48,7 +48,7 @@ export const createTask = async (taskData) => {
 // Update a task
 export const updateTask = async (taskID, taskUpData) => {
   try {
-    const response = await axiosInstance.put(`/transactions/${taskID}`, taskUpData);
+    const response = await axiosInstance.put(`/transactions/task/${taskID}`, taskUpData);
     return response.data;
   } catch (error) {
     console.error("Error updating task:", error.message);
@@ -59,7 +59,7 @@ export const updateTask = async (taskID, taskUpData) => {
 // Delete a task
 export const deleteTask = async (taskID) => {
   try {
-    const response = await axiosInstance.delete(`/transactions/${taskID}`);
+    const response = await axiosInstance.delete(`/transactions/task/${taskID}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting task:", error.message);
