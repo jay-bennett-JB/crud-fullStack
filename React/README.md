@@ -1,58 +1,57 @@
-## Video Tutorial used as starting point idea
+# Project Name - CRUD APP (FULL STACK)
 
-Eric Roby - How to build a React and FastAPI application (Full Stack Guide)
-https://www.youtube.com/watch?v=0zb2kohYZIM&t=1833s
+## License
 
-## Activiion
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-In order to run the backend and frontend
+## Third-Party Licenses
 
-1. In powershell terminal
-   ''' .\env\Scripts\Activate.ps1'''
-2. cd React
-3. npm run start-backend
-4. npm run start-frontend
+This project uses third-party dependencies licensed under permissive open-source licenses (MIT, Apache-2.0, BSD, etc.). For a full list, run:
 
-Changes made from Video tutorial.
+-npx license-checker --summary
 
-1. Made some admendments to the FastAPI files to match my requirements
-2. Made some admendments to how GET and Post is handled.
-3. Uvicorn reload syntax is placed in package.json so that it loads when start scripts for react are run.
+## **📌 Table of Contents**
 
-## React App
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Testing](#testing)
 
-This web based application will allow a user to create, read, update and delete tasks. A fetch all handler function in api.js displays all created tasks
+---
 
-# Create Task
+## **📖 About the Project**
 
-1. Fill in details required.
-2. Press submit
-3. API sends inforamtion to transactions.db, if none exists this will be created.
+A React frontend with a fully functioning backend database. The files also contain various test files.
 
-# Update Task
+---
 
-1. Select Task using Check Box.
-2. New window will open with task details - This also uses Task Form but further completes information to allow user to see what is already there.
+## **🚀 Features**
 
-## Icons
+- ✅ Task creation, updating, and deletion
+- 🎨 Responsive UI with dark mode support
+- 🔄 Real-time updates using WebSockets
+- 🔒 Authentication and authorization with JWT
+- 📊 Admin dashboard with analytics
 
-HomeOutlinedIcon
-TaskOutlinedIcon
-MenuOutlinedIcon
-FormatListBulletedOutlinedIcon
-DriveFileRenameOutlineOutlinedIcon
-ScheduleOutlinedIcon
-LightModeOutlinedIcon
-DarkModeOutlinedIcon
-NotificationsIcon
-SettingsOutlinedIcon
-PersonOutlinedIcon
-SearchIcon
+---
 
-## Tests
+## **🛠 Installation**
 
-Backend
-test_database - Tests Database backend functions (Unit testing)
-test_main - Test API endpoints (Integration testing)
-test_models - Tests Models backend functions (Unit testing)
-testing_db - Sets up testing database connection. (Part of Unit and Integration)
+### **Prerequisites**
+
+- Node.js `>=16.x`
+- npm or yarn
+- MongoDB (if using a database)
+
+### **Steps to Install**
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/yourusername/project-name.git
+   ```
+
+```
+
+```

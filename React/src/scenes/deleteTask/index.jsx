@@ -48,6 +48,7 @@ const DeleteTaskPage = () => {
         {/* Single Task View list based on using form below to submit task ID to field  */}
         <Box>
           <TextField
+            data-testid="task-id-input"
             label="Task ID"
             variant="outlined"
             value={taskID}
@@ -67,6 +68,7 @@ const DeleteTaskPage = () => {
             <SingleTaskView taskID={taskID} />
 
             <Button
+              data-testid="delete-btn"
               type="submit"
               color="secondary"
               variant="contained"

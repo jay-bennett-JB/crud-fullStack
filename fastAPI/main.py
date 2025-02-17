@@ -8,17 +8,17 @@ import models
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import date
 from typing import List
+from dotenv import load_dotenv
+import os
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
+# Origin Declaration
+load_dotenv()
+origins = os.getenv("BACKEND_ORIGINS").split(",")
+
 # Api Setup
 app = FastAPI()
-
-# Origin Declaration
-origins = [
-    "http://localhost:8000",
-    "http://localhost:3000",
-]
 
 # Middleware declaration
 # this allows for a request from only origin declared values, in addition to restricting request types

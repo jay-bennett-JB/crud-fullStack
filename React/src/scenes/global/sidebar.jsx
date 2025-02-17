@@ -16,7 +16,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     <MenuItem
       component={<Link to={to} />} // Set Link as the root component
       active={selected === title}
-      style={{ color: colors.grey[100], textDecoration: "none" }} // Add textDecoration here
+      style={{ color: colors.greenAccent[500] }}
       onClick={() => setSelected(title)}
       icon={icon}
     >

@@ -49,6 +49,7 @@ const UpdateTaskPage = () => {
         {/* Single Task View list based on using form below to submit task ID to field  */}
         <Box>
           <TextField
+            data-testid="task-id-input"
             label="Task ID"
             variant="outlined"
             value={taskID}
@@ -72,6 +73,7 @@ const UpdateTaskPage = () => {
               color="secondary"
               variant="contained"
               form="task-form"
+              data-testid="submit-btn"
             >
               Submit
             </Button>
