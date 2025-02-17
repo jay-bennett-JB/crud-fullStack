@@ -32,8 +32,6 @@ A React frontend with a fully functioning backend database. The files also conta
 - ✅ Task creation, updating, and deletion
 - 🎨 Responsive UI with dark mode support
 - 🔄 Real-time updates using WebSockets
-- 🔒 Authentication and authorization with JWT
-- 📊 Admin dashboard with analytics
 
 ---
 
