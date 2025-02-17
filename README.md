@@ -41,7 +41,6 @@ A React frontend with a fully functioning backend database. The files also conta
 
 - Node.js `>=16.x`
 - npm or yarn
-- MongoDB (if using a database)
 
 ### **Steps to Install**
 
