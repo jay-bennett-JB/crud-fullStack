@@ -46,7 +46,7 @@ A React frontend with a fully functioning backend database. The files also conta
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/yourusername/project-name.git
+   git clone https://github.com/jay-bennett-JB/crud-fullStack.git
    ```
 
 ```
