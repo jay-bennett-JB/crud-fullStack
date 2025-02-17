@@ -49,6 +49,13 @@ A React frontend with a fully functioning backend database. The files also conta
    git clone https://github.com/jay-bennett-JB/crud-fullStack.git
    ```
 
+---
+
+## **Testing**
+
+- Backend = Pytest
+- Frontend = Jest, Cypress
+
 ```
 
 ```
